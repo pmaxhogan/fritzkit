@@ -16,3 +16,4 @@ tools/fzp-checker/.venv/
 Thumbs.db
 tools/fzp-checker/fzp_checker.egg-info/
 *.egg-info/
+examples/*/build/

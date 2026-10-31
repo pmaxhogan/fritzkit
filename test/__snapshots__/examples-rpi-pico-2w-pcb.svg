@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0.864in" height="2.154in" viewBox="0 0 864 2154">
+<g id="silkscreen">
+<rect x="40.614" y="150.063" width="818.772" height="1999.874" fill="none" stroke="#000000" stroke-width="8"/>
+<circle cx="225.591" cy="224.803" r="41.339" fill="none" stroke="#000000" stroke-width="8"/>
+<circle cx="674.409" cy="224.803" r="41.339" fill="none" stroke="#000000" stroke-width="8"/>
+<circle cx="225.591" cy="2075.197" r="41.339" fill="none" stroke="#000000" stroke-width="8"/>
+<circle cx="674.409" cy="2075.197" r="41.339" fill="none" stroke="#000000" stroke-width="8"/>
+</g>
+<g id="copper1">
+<g id="copper0">
+<circle id="connector0pin" cx="100" cy="200" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector1pin" cx="100" cy="300" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector2pin" cx="100" cy="400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector3pin" cx="100" cy="500" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector4pin" cx="100" cy="600" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector5pin" cx="100" cy="700" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector6pin" cx="100" cy="800" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector7pin" cx="100" cy="900" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector8pin" cx="100" cy="1000" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector9pin" cx="100" cy="1100" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector10pin" cx="100" cy="1200" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector11pin" cx="100" cy="1300" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector12pin" cx="100" cy="1400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector13pin" cx="100" cy="1500" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector14pin" cx="100" cy="1600" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector15pin" cx="100" cy="1700" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector16pin" cx="100" cy="1800" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector17pin" cx="100" cy="1900" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector18pin" cx="100" cy="2000" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector19pin" cx="100" cy="2100" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector20pin" cx="800" cy="200" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector21pin" cx="800" cy="300" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector22pin" cx="800" cy="400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector23pin" cx="800" cy="500" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector24pin" cx="800" cy="600" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector25pin" cx="800" cy="700" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector26pin" cx="800" cy="800" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector27pin" cx="800" cy="900" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector28pin" cx="800" cy="1000" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector29pin" cx="800" cy="1100" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector30pin" cx="800" cy="1200" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector31pin" cx="800" cy="1300" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector32pin" cx="800" cy="1400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector33pin" cx="800" cy="1500" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector34pin" cx="800" cy="1600" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector35pin" cx="800" cy="1700" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector36pin" cx="800" cy="1800" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector37pin" cx="800" cy="1900" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector38pin" cx="800" cy="2000" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector39pin" cx="800" cy="2100" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector40pin" cx="472.992" cy="1374.409" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector41pin" cx="572.992" cy="1374.409" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector42pin" cx="672.992" cy="1374.409" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+</g>
+</g>
+</svg>

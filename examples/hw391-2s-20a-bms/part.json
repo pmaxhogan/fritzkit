@@ -1,0 +1,255 @@
+{
+  "$schema": "https://raw.githubusercontent.com/pmaxhogan/fritzkit/main/src/core/schema/part.schema.json",
+  "slug": "hw391-2s-20a-bms",
+  "title": "HW-391 2S 20A Li-ion BMS (balance)",
+  "version": 1,
+  "label": "A",
+  "tags": ["bms", "2s", "18650", "li-ion", "protection", "balance", "hw-391", "20a", "8.4v"],
+  "description": "HW-391 2S (7.4 V nominal / 8.4 V full) 20 A lithium-ion protection board with balancing, 48 x 20 mm, five through-hole solder pads. Drawing = TOP (component) side, as in the listing's orthographic top view: the 4.2V balance-tap pad at the middle of the LEFT short edge with the P- (silkscreen minus-in-circle) and P+ (plus-in-circle) pads just right of it, 0V at the top-right corner, 8.4V at the bottom-right corner, the four DPAK MOSFETs in the right half, the two 430 shunt resistors along the bottom edge. Wiring: 0V = cell-1 minus (B-), 4.2V = cell-1 plus / cell-2 minus junction (B1, balance tap), 8.4V = cell-2 plus (B+), P- / P+ = charger and load. 8.4V and P+ are one copper pour on the back side (bused); 0V and P- are separated by the MOSFETs (not bused). Board size from the listing's dimension callout; pad positions measured on the orthographic photo (estimated, about +/-0.3 mm).",
+  "sources": [
+    "https://www.amazon.com/dp/B08NSTF8CT",
+    "https://m.media-amazon.com/images/I/7145aac9+qL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/715trmKBP4L._AC_SL1500_.jpg"
+  ],
+  "properties": {
+    "type": "battery protection board",
+    "model": "HW-391",
+    "cells": "2S Li-ion (3.7 V nominal, 4.2 V full)",
+    "charge voltage": "8.4-9.0 V",
+    "rated current": "20 A"
+  },
+  "outline": {
+    "widthMm": 48,
+    "heightMm": 20,
+    "shape": "rect"
+  },
+  "artwork": {
+    "style": "vector",
+    "boardColor": "#12905E",
+    "silkscreen": [
+      {
+        "kind": "rect",
+        "xMm": 2.3,
+        "yMm": 0.6,
+        "wMm": 7.6,
+        "hMm": 2.9,
+        "color": "#F2F2F2"
+      },
+      {
+        "kind": "text",
+        "text": "20A",
+        "xMm": 6.1,
+        "yMm": 2.05,
+        "sizeMm": 2.4,
+        "color": "#12905E",
+        "rotate": 180
+      },
+      {
+        "kind": "text",
+        "text": "HW-391",
+        "xMm": 44.9,
+        "yMm": 12.6,
+        "sizeMm": 1.5,
+        "rotate": 90
+      }
+    ],
+    "components": [
+      {
+        "kind": "rect",
+        "xMm": 24.2,
+        "yMm": 0.45,
+        "wMm": 6.1,
+        "hMm": 6.55,
+        "color": "#2A2A2A",
+        "rxMm": 0.3,
+        "note": "MOSFET Q1 (DPAK)"
+      },
+      {
+        "kind": "rect",
+        "xMm": 30.3,
+        "yMm": 0.9,
+        "wMm": 1,
+        "hMm": 5.4,
+        "color": "#B8B8B8",
+        "note": "Q1 tab"
+      },
+      {
+        "kind": "rect",
+        "xMm": 33.8,
+        "yMm": 0.45,
+        "wMm": 5.6,
+        "hMm": 6.55,
+        "color": "#2A2A2A",
+        "rxMm": 0.3,
+        "note": "MOSFET Q2"
+      },
+      {
+        "kind": "rect",
+        "xMm": 32.2,
+        "yMm": 0.9,
+        "wMm": 1.3,
+        "hMm": 5.4,
+        "color": "#B8B8B8",
+        "note": "Q2 tab"
+      },
+      {
+        "kind": "rect",
+        "xMm": 24.2,
+        "yMm": 7.55,
+        "wMm": 6.1,
+        "hMm": 6.6,
+        "color": "#2A2A2A",
+        "rxMm": 0.3,
+        "note": "MOSFET Q3"
+      },
+      {
+        "kind": "rect",
+        "xMm": 30.3,
+        "yMm": 8,
+        "wMm": 1,
+        "hMm": 5.4,
+        "color": "#B8B8B8",
+        "note": "Q3 tab"
+      },
+      {
+        "kind": "rect",
+        "xMm": 33.8,
+        "yMm": 7.55,
+        "wMm": 5.6,
+        "hMm": 6.6,
+        "color": "#2A2A2A",
+        "rxMm": 0.3,
+        "note": "MOSFET Q4"
+      },
+      {
+        "kind": "rect",
+        "xMm": 32.2,
+        "yMm": 8,
+        "wMm": 1.3,
+        "hMm": 5.4,
+        "color": "#B8B8B8",
+        "note": "Q4 tab"
+      },
+      {
+        "kind": "rect",
+        "xMm": 12.45,
+        "yMm": 7.9,
+        "wMm": 4,
+        "hMm": 2.45,
+        "color": "#2A2A2A",
+        "rxMm": 0.2,
+        "note": "protection IC (PAYG, SOT-23-6)"
+      },
+      {
+        "kind": "rect",
+        "xMm": 2.6,
+        "yMm": 15.9,
+        "wMm": 7.9,
+        "hMm": 3.4,
+        "color": "#1E1E1E",
+        "rxMm": 0.3,
+        "note": "430 shunt resistor (2512)"
+      },
+      {
+        "kind": "rect",
+        "xMm": 35.4,
+        "yMm": 15.9,
+        "wMm": 8.2,
+        "hMm": 3.4,
+        "color": "#1E1E1E",
+        "rxMm": 0.3,
+        "note": "430 shunt resistor (2512)"
+      }
+    ]
+  },
+  "pins": [
+    {
+      "key": "bmid",
+      "name": "4.2V",
+      "description": "Balance tap B1: junction of cell 1 plus and cell 2 minus (4.2 V above 0V when full)",
+      "role": "power",
+      "type": "female",
+      "xMm": 1.75,
+      "yMm": 10.1,
+      "pad": {
+        "shape": "rect",
+        "wMm": 2.6,
+        "hMm": 4.2,
+        "holeMm": 1.2
+      }
+    },
+    {
+      "key": "pminus",
+      "name": "P-",
+      "description": "Charge/discharge minus (silkscreen: minus in a circle; back: charge/discharge). Load and charger negative, switched by the MOSFETs - NOT the same net as 0V",
+      "role": "gnd",
+      "type": "female",
+      "xMm": 7.55,
+      "yMm": 7.6,
+      "pad": {
+        "shape": "rect",
+        "wMm": 4.3,
+        "hMm": 3.1,
+        "holeMm": 1.9
+      }
+    },
+    {
+      "key": "pplus",
+      "name": "P+",
+      "description": "Charge/discharge plus (silkscreen: plus in a circle). Load and charger positive; same copper as 8.4V (B+)",
+      "role": "power",
+      "type": "female",
+      "xMm": 7.55,
+      "yMm": 12.6,
+      "pad": {
+        "shape": "rect",
+        "wMm": 4.3,
+        "hMm": 3.1,
+        "holeMm": 1.9
+      }
+    },
+    {
+      "key": "bminus",
+      "name": "0V",
+      "description": "B-: battery pack negative (cell 1 minus)",
+      "role": "gnd",
+      "type": "female",
+      "xMm": 45.85,
+      "yMm": 2.6,
+      "pad": {
+        "shape": "rect",
+        "wMm": 4.3,
+        "hMm": 3.1,
+        "holeMm": 1.6
+      }
+    },
+    {
+      "key": "bplus",
+      "name": "8.4V",
+      "description": "B+: battery pack positive (cell 2 plus, 8.4 V when full); same copper as P+",
+      "role": "power",
+      "type": "female",
+      "xMm": 45.85,
+      "yMm": 17.4,
+      "pad": {
+        "shape": "rect",
+        "wMm": 4.3,
+        "hMm": 3.1,
+        "holeMm": 1.6
+      }
+    }
+  ],
+  "buses": [
+    {
+      "id": "BPLUS",
+      "pins": ["bplus", "pplus"]
+    }
+  ],
+  "pinIds": {
+    "bmid": 0,
+    "pminus": 1,
+    "pplus": 2,
+    "bminus": 3,
+    "bplus": 4
+  }
+}

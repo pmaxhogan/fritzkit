@@ -69,18 +69,22 @@ Unknown keys are rejected everywhere (every object is strict), so a typo such as
 
 ## Fields shared by pins, header pins and leads
 
-| field         | type            | default      | notes                                                                                                                          |
-| ------------- | --------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| `key`         | string          | **required** | stable identifier, unique across the whole part. Letters, digits, `_ . + -`; must not start with `.`, `+` or `-`. Never rename |
-| `name`        | string, 1-40    | **required** | the connector name Fritzing shows on hover and in the Inspector. Use the silkscreen text (`GND`, `D7`, `NO`), never `pin1`     |
-| `label`       | string, max 16  | the name     | shorter text drawn next to the pin (breadboard and schematic)                                                                  |
-| `description` | string, max 400 | the name     | function, voltage, alternate functions (`D4 / SDA`)                                                                            |
-| `role`        | enum            | `"io"`       | `power`, `gnd`, `io`, `analog`, `pwm`, `i2c`, `spi`, `uart`, `usb`, `clock`, `reset`, `enable`, `nc`, `other`                  |
+| field         | type            | default      | notes                                                                                                                           |
+| ------------- | --------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `key`         | string          | **required** | stable identifier, unique across the whole part. Letters, digits, `_ . + -`; must not start with `.`, `+` or `-`. Never rename  |
+| `name`        | string, 1-40    | **required** | the connector name Fritzing shows on hover and in the Inspector. Use the silkscreen text (`GND`, `D7`, `NO`), never `pin1`      |
+| `label`       | string, max 16  | the name     | text drawn next to the pin (breadboard and schematic); `""` hides the breadboard label; the fzp connector name is always `name` |
+| `description` | string, max 400 | the name     | function, voltage, alternate functions (`D4 / SDA`)                                                                             |
+| `role`        | enum            | `"io"`       | `power`, `gnd`, `io`, `analog`, `pwm`, `i2c`, `spi`, `uart`, `usb`, `clock`, `reset`, `enable`, `nc`, `other`                   |
 
 `role` decides where the pin goes on the schematic symbol (see [schematic](#schematic)) and
 its label colour. Use `power` for every supply pin (VCC, 5V, 3V3, VBAT, VIN), `gnd` for every
 ground, `nc` for pins that are not connected, `other` for things like relay contacts and
 motor phases.
+
+Symbol-only or non-Latin silkscreen (a plus in a circle, Chinese text): `name` is the
+conventional ASCII function name (`P+`, `P-`, `VCC`); the printed symbol or the translation
+goes in `description`. Names and labels are ASCII only.
 
 ## Pin
 
@@ -117,6 +121,11 @@ Connector `type` (what Fritzing lets attach to it):
 
 In the PCB view a pad with a hole becomes a through-hole pad on both copper layers. Fritzing
 needs a minimum hole and annular ring, so very small holes are drawn slightly bigger.
+
+The PCB SVG draws the pad as a ring: a `<circle fill="none">` whose stroke is the copper, so
+`drill = 2 * (r - stroke-width / 2)` and `copper = 2 * (r + stroke-width / 2)` (mils). Oblong
+and rectangular pads also get a solid copper rect under the ring, so a preview PNG can look
+like a solid block; the drill is still the ring's empty centre.
 
 ## Header
 
@@ -196,7 +205,8 @@ Draw only the components that help a user recognise the board and find pin 1 (th
 connector, a relay can, a big chip). Do not draw every resistor. fritzkit labels every pin
 already, so do not repeat pin names in `silkscreen`. Component shapes are drawn on top of
 silkscreen text (pads are drawn on top of both), so keep text off component shapes or it is
-hidden.
+hidden. Silkscreen and components are drawn under header bodies, pads and pin labels, so
+put text where pads are not.
 
 ### SilkItem
 
@@ -246,9 +256,13 @@ gives the new key the next free number and writes it back to `part.json`. Number
 reused, so when you delete a pin its number stays reserved and every other pin keeps its id.
 That is what lets Fritzing swap a placed copy for a newer version without dropping wires.
 
-Rules: never edit or renumber `pinIds`; never reuse a key for a different physical pin;
+fritzkit manages `pinIds`: do not hand-edit them for a part that has ever been
+exported/installed (connector ids must stay stable). For a brand-new part you may delete
+the `pinIds` object before the first export to close gaps. Never reuse a key for a
+different physical pin;
 rename a pin by changing `name`, not `key`. A new spec may omit `pinIds` or write `{}`. Gaps
-in the numbering after a pin was removed produce a harmless `connector-numbering` warning.
+in the numbering after a pin was removed produce a harmless `connector-numbering` warning
+(only a warning).
 
 ## Spice
 
@@ -283,7 +297,11 @@ and MCU boards.
 | `layout` | `by-role`                                  | `"by-role"` | an auto-sized rectangle on the 0.1 in grid |
 | `sides`  | `{ left?, right?, top?, bottom? }`, role[] | -           | override which side each role lands on     |
 
-Default sides: power at the top/left, gnd at the bottom, everything else on the right.
+Behaviour of `by-role`: one box; pins are grouped by role onto sides, in spec order within
+a role; every bused GND pin still gets its own pin. Default sides: power, usb, enable and
+reset on the left, gnd at the bottom, everything else on the right. An empty `label` is
+drawn as an empty pin label (it does not fall back to `name`). An explicit per-pin ordering
+hint is not available yet.
 Example override:
 `"schematic": { "sides": { "left": ["power", "gnd"], "right": ["io", "i2c", "spi", "uart", "analog", "pwm"] } }`.
 
@@ -302,121 +320,10 @@ Example override:
 - `family = family ?? slug` (stable) and `variant = v<version> <hash8>` (unique per export).
   In Fritzing, select a placed part and pick another variant in the Inspector to swap it.
 
-## Example: Seeed Studio XIAO ESP32-C6
+## Worked examples
 
-Source: https://wiki.seeedstudio.com/xiao_esp32c6_getting_started/ (board 21 x 17.8 mm).
-Top view, component side up, USB-C on the LEFT short edge, so the long edges run along x.
-The 5V/GND/3V3 row is along the top edge, D0..D6 along the bottom edge, both read from the
-USB end. The two battery pads are on the back; their positions are estimates. The side GND
-pad and the battery minus pad are one net, hence the bus.
-
-```json
-{
-  "$schema": "https://raw.githubusercontent.com/pmaxhogan/fritzkit/main/src/core/schema/part.schema.json",
-  "slug": "xiao-esp32-c6",
-  "title": "Seeed Studio XIAO ESP32-C6",
-  "version": 1,
-  "label": "U",
-  "tags": ["xiao", "esp32-c6", "seeed", "castellated"],
-  "description": "Thumb-sized ESP32-C6 board. Top view, USB-C at the left short edge.",
-  "sources": ["https://wiki.seeedstudio.com/xiao_esp32c6_getting_started/"],
-  "properties": { "mpn": "XIAO ESP32C6", "type": "module", "chip": "ESP32-C6" },
-  "outline": { "widthMm": 21, "heightMm": 17.8, "shape": "rounded", "cornerRadiusMm": 1 },
-  "artwork": {
-    "style": "vector",
-    "boardColor": "#1A1A1A",
-    "silkscreen": [
-      { "kind": "text", "text": "XIAO ESP32C6", "xMm": 9.5, "yMm": 13, "sizeMm": 0.9 }
-    ],
-    "components": [
-      {
-        "kind": "rect",
-        "xMm": -1.2,
-        "yMm": 4.4,
-        "wMm": 7.4,
-        "hMm": 9,
-        "color": "#B0B0B0",
-        "rxMm": 1,
-        "note": "USB-C receptacle, overhangs the left edge"
-      },
-      {
-        "kind": "rect",
-        "xMm": 7.5,
-        "yMm": 4.4,
-        "wMm": 6.5,
-        "hMm": 7,
-        "color": "#C8C8C8",
-        "rxMm": 0.3,
-        "note": "RF shield can"
-      }
-    ]
-  },
-  "headers": [
-    {
-      "key": "top",
-      "kind": "castellated",
-      "cols": 7,
-      "orientation": "horizontal",
-      "xMm": 2.88,
-      "yMm": 1.28,
-      "pins": [
-        { "key": "5v", "name": "5V", "role": "power", "description": "5 V (USB-C)" },
-        { "key": "gnd", "name": "GND", "role": "gnd" },
-        { "key": "3v3", "name": "3V3", "role": "power", "description": "3.3 V regulator output" },
-        { "key": "d10", "name": "D10", "role": "spi", "description": "D10 / MOSI" },
-        { "key": "d9", "name": "D9", "role": "spi", "description": "D9 / MISO" },
-        { "key": "d8", "name": "D8", "role": "spi", "description": "D8 / SCK" },
-        { "key": "d7", "name": "D7", "role": "uart", "description": "D7 / RX" }
-      ]
-    },
-    {
-      "key": "bottom",
-      "kind": "castellated",
-      "cols": 7,
-      "orientation": "horizontal",
-      "xMm": 2.88,
-      "yMm": 16.52,
-      "pins": [
-        { "key": "d0", "name": "D0", "description": "D0 / A0" },
-        { "key": "d1", "name": "D1", "description": "D1 / A1" },
-        { "key": "d2", "name": "D2", "description": "D2 / A2" },
-        { "key": "d3", "name": "D3" },
-        { "key": "d4", "name": "D4", "role": "i2c", "description": "D4 / SDA" },
-        { "key": "d5", "name": "D5", "role": "i2c", "description": "D5 / SCL" },
-        { "key": "d6", "name": "D6", "role": "uart", "description": "D6 / TX" }
-      ]
-    }
-  ],
-  "pins": [
-    {
-      "key": "bat-",
-      "name": "BAT-",
-      "label": "B-",
-      "type": "pad",
-      "role": "gnd",
-      "xMm": 15.6,
-      "yMm": 5,
-      "pad": { "shape": "rect", "wMm": 1.6, "hMm": 1.2, "smd": true },
-      "description": "Battery minus, BACK side (position estimated). Same net as GND."
-    },
-    {
-      "key": "bat+",
-      "name": "BAT+",
-      "label": "B+",
-      "type": "pad",
-      "role": "power",
-      "xMm": 15.6,
-      "yMm": 12.8,
-      "pad": { "shape": "rect", "wMm": 1.6, "hMm": 1.2, "smd": true },
-      "description": "Li-ion battery plus, BACK side (position estimated)"
-    }
-  ],
-  "buses": [{ "id": "GND", "pins": ["gnd", "bat-"] }]
-}
-```
-
-How the numbers were derived: 7 pins at 2.54 mm span 6 x 2.54 = 15.24 mm, centred on the
-21 mm edge, so the first pin is at x = (21 - 15.24) / 2 = 2.88. The two rows are 15.24 mm
-(0.6 in) apart and centred on the 17.8 mm height: y = (17.8 - 15.24) / 2 = 1.28 and
-1.28 + 15.24 = 16.52. The castellated default pad (1.6 x 2.4 mm, long side along y) fits a
-row on the top or bottom edge.
+Complete, valid specs live in the skill's
+[examples.md](../skills/fritzkit/reference/examples.md): the Seeed XIAO ESP32-C6 (headers and a
+bus), an ESC with wire leads, a relay module, a KiCad import, and the pads-only HW-391
+board measured from a listing photo. The full XIAO spec is also in
+[SKILL.md](../skills/fritzkit/SKILL.md) (a portrait board, USB at the top).

@@ -336,6 +336,20 @@ describe("renderBreadboard", () => {
   });
 });
 
+describe("empty pin label", () => {
+  it('draws no breadboard label text for label ""', () => {
+    const input = {
+      ...FIXTURES.pads,
+      pins: FIXTURES.pads.pins!.map((p) => (p.key === "vcc" ? { ...p, label: "" } : p)),
+    };
+    const { part, ctx } = build(input);
+    const svg = renderBreadboard(part, ctx);
+    expect(svg).not.toContain(">VCC</text>");
+    expect(svg).toContain(">GND</text>");
+    expect(tagWithId(svg, part.connectors.find((c) => c.key === "vcc")!.svgId)).toBeDefined();
+  });
+});
+
 describe("renderBreadboardContent / helpers", () => {
   it("strips every id when ids is false", () => {
     const { part, ctx } = build(FIXTURES.esc);

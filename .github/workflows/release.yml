@@ -1,0 +1,97 @@
+name: release
+
+# Release on every green push to main (stack standards release.on-main, ci.deploy-on-main):
+#   - computes the next patch version from the newest v* tag (auto patch bump)
+#   - publishes to npm: a real publish when the NPM_TOKEN secret exists, otherwise a
+#     dry run (the job must not block the project on npm auth; see README "Releasing")
+#   - always creates a GitHub Release with the packed tarball
+# The daily cron exists because a Dependabot merge made with GITHUB_TOKEN triggers no
+# push workflow; the cron releases anything main has accumulated since the last tag.
+on:
+  workflow_run:
+    workflows: [ci]
+    types: [completed]
+    branches: [main]
+  schedule:
+    - cron: "17 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    # Only after a green CI run (or on schedule / manual dispatch).
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - run: npm ci
+
+      - name: Compute next version
+        id: ver
+        run: |
+          last="$(git tag --list 'v*' --sort=-v:refname | head -n1)"
+          if [ -z "$last" ]; then
+            next="$(node -p "require('./package.json').version")"
+          else
+            base="${last#v}"
+            if [ "$(git rev-list -n1 "$last")" = "$(git rev-parse HEAD)" ]; then
+              echo "HEAD is already tagged $last; nothing to release"
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            IFS=. read -r a b c <<<"$base"
+            next="$a.$b.$((c + 1))"
+          fi
+          echo "next=$next" >> "$GITHUB_OUTPUT"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "next version: $next (last tag: ${last:-none})"
+
+      - name: Set version and build
+        if: steps.ver.outputs.skip != 'true'
+        run: |
+          npm version "${{ steps.ver.outputs.next }}" --no-git-tag-version
+          npm run build
+          npm pack
+          ls -la fritzkit-*.tgz
+
+      - name: Publish to npm (dry run without NPM_TOKEN)
+        if: steps.ver.outputs.skip != 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -n "$NODE_AUTH_TOKEN" ]; then
+            npm publish --access public --provenance
+          else
+            echo "::warning::NPM_TOKEN is not set; running npm publish --dry-run. Add the NPM_TOKEN repository secret (npm automation token) to arm publishing."
+            npm publish --access public --dry-run
+          fi
+
+      - name: Tag and GitHub Release
+        if: steps.ver.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NEXT: ${{ steps.ver.outputs.next }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "v$NEXT" -m "fritzkit v$NEXT"
+          git push origin "v$NEXT"
+          notes="$(awk '/^## Unreleased/{flag=1;next}/^## /{flag=0}flag' CHANGELOG.md)"
+          gh release create "v$NEXT" fritzkit-*.tgz --title "fritzkit v$NEXT" --notes "${notes:-Automated release.}"

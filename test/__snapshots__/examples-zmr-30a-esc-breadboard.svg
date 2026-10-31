@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1.872in" height="0.945in" viewBox="0 0 1872 945">
+<g id="breadboard">
+  <rect x="55.181" y="4" width="1763.654" height="936.882" rx="114.11" ry="114.11" fill="#202020" stroke="#161616" stroke-width="8"/>
+  <text x="937.008" y="488.189" font-family="Noto Sans" font-size="157.48" fill="#FFFFFF" text-anchor="middle">ZMR 30A</text>
+  <text x="937.008" y="674.409" font-family="Noto Sans" font-size="70.866" fill="#C0C0C0" text-anchor="middle">BIDIRECTIONAL</text>
+  <line id="connector0leg" x1="51.181" y1="137.795" x2="-3098.425" y2="137.795" stroke="#D02020" stroke-width="102.362" stroke-linecap="round"/>
+  <line id="connector1leg" x1="51.181" y1="334.646" x2="-3098.425" y2="334.646" stroke="#101010" stroke-width="102.362" stroke-linecap="round"/>
+  <line id="connector2leg" x1="51.181" y1="587.402" x2="-5854.331" y2="587.402" stroke="#F08020" stroke-width="39.37" stroke-linecap="round"/>
+  <line id="connector3leg" x1="51.181" y1="687.402" x2="-5854.331" y2="687.402" stroke="#D02020" stroke-width="39.37" stroke-linecap="round"/>
+  <line id="connector4leg" x1="51.181" y1="787.402" x2="-5854.331" y2="787.402" stroke="#6B3A1E" stroke-width="39.37" stroke-linecap="round"/>
+  <line id="connector5leg" x1="1822.835" y1="196.85" x2="4185.039" y2="196.85" stroke="#101010" stroke-width="94.488" stroke-linecap="round"/>
+  <line id="connector6leg" x1="1822.835" y1="472.441" x2="4185.039" y2="472.441" stroke="#101010" stroke-width="94.488" stroke-linecap="round"/>
+  <line id="connector7leg" x1="1822.835" y1="748.031" x2="4185.039" y2="748.031" stroke="#101010" stroke-width="94.488" stroke-linecap="round"/>
+  <circle id="connector0pin" cx="51.181" cy="137.795" r="51.181" fill="#9A916C"/>
+  <circle id="connector1pin" cx="51.181" cy="334.646" r="51.181" fill="#9A916C"/>
+  <circle id="connector2pin" cx="51.181" cy="587.402" r="19.685" fill="#9A916C"/>
+  <circle id="connector3pin" cx="51.181" cy="687.402" r="19.685" fill="#9A916C"/>
+  <circle id="connector4pin" cx="51.181" cy="787.402" r="19.685" fill="#9A916C"/>
+  <circle id="connector5pin" cx="1822.835" cy="196.85" r="47.244" fill="#9A916C"/>
+  <circle id="connector6pin" cx="1822.835" cy="472.441" r="47.244" fill="#9A916C"/>
+  <circle id="connector7pin" cx="1822.835" cy="748.031" r="47.244" fill="#9A916C"/>
+</g>
+</svg>

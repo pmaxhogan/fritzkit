@@ -35,12 +35,18 @@
     "dist",
     "skills",
     ".claude-plugin",
+    "tools/fzp-checker/pyproject.toml",
+    "tools/fzp-checker/uv.lock",
+    "tools/fzp-checker/check_fzp.py",
+    "tools/fzp-checker/.python-version",
+    "tools/fzp-checker/README.md",
+    "tools/fzp-checker/vendor",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs && npm run ui:build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -51,19 +57,27 @@
     "e2e": "node --import tsx scripts/e2e/run.ts",
     "fritzkit": "node --import tsx src/cli/main.ts",
     "prepack": "npm run build",
-    "gen-schema": "node --import tsx scripts/gen-schema.ts"
+    "gen-schema": "node --import tsx scripts/gen-schema.ts",
+    "ui:dev": "vite",
+    "ui:build": "tsc -p tsconfig.ui.json --noEmit && vite build"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
     "@vitest/coverage-v8": "^5.0.5",
     "eslint": "^10.14.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.13.0",
     "prettier": "^3.9.10",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.1",
+    "vite": "^8.3.5",
     "vitest": "^5.0.5"
   },
   "dependencies": {

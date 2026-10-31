@@ -241,6 +241,16 @@ export function contentBounds(
       grow(c.xMm, c.yMm, hw, hh);
     }
   }
+  // Artwork that overhangs the outline (a USB connector drawn past the edge) must fit too.
+  for (const item of [...spec.artwork.silkscreen, ...spec.artwork.components]) {
+    if (item.kind === "rect")
+      grow(item.xMm + item.wMm / 2, item.yMm + item.hMm / 2, item.wMm / 2, item.hMm / 2);
+    else if (item.kind === "circle") grow(item.xMm, item.yMm, item.dMm / 2, item.dMm / 2);
+    else if (item.kind === "line") {
+      grow(item.x1Mm, item.y1Mm, item.widthMm / 2, item.widthMm / 2);
+      grow(item.x2Mm, item.y2Mm, item.widthMm / 2, item.widthMm / 2);
+    }
+  }
   if (spec.outline.shape === "custom") {
     // A custom outline path cannot be inset, so leave room for half the silkscreen stroke.
     const pad = milToMm(4);

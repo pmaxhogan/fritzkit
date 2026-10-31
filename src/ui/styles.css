@@ -1,0 +1,382 @@
+/* fritzkit ui: plain CSS, no component library. */
+:root {
+  --bg: #f4f6f8;
+  --panel: #ffffff;
+  --line: #d5dae0;
+  --text: #1d232a;
+  --muted: #6b7580;
+  --accent: #1f6feb;
+  --bad: #c62828;
+  --warn: #b26a00;
+  --good: #2e7d32;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--bg);
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+.spacer {
+  flex: 1;
+}
+.muted {
+  color: var(--muted);
+}
+.mono {
+  font-family: ui-monospace, Consolas, monospace;
+}
+.err {
+  color: var(--bad);
+}
+.ok {
+  color: var(--good);
+}
+.status {
+  color: var(--good);
+}
+.status.warn {
+  color: var(--warn);
+}
+.status.bad {
+  color: var(--bad);
+}
+.bar {
+  padding: 6px 12px;
+  background: #fff4d6;
+  border-bottom: 1px solid #e8d18c;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.bar.bad {
+  background: #fde7e7;
+  border-color: #f1b5b5;
+}
+main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+.left {
+  flex: 1 1 55%;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-right: 1px solid var(--line);
+}
+.right {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--panel);
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.canvaswrap {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+}
+.canvas {
+  background: #fff;
+  border: 1px solid var(--line);
+  touch-action: none;
+  user-select: none;
+}
+.canvas.picking {
+  cursor: crosshair;
+}
+.outline {
+  fill: none;
+  stroke: #0b5d2a;
+  stroke-width: 0.15;
+}
+.outline.filled {
+  fill-opacity: 0.35;
+}
+.hole {
+  fill: #fff;
+  stroke: #666;
+  stroke-width: 0.1;
+}
+.header-body {
+  fill: #222;
+  fill-opacity: 0.15;
+  stroke: #222;
+  stroke-width: 0.08;
+}
+.marker {
+  cursor: grab;
+}
+.marker .pad {
+  stroke: #fff;
+  stroke-width: 0.12;
+}
+.marker.selected .pad {
+  stroke: #ff9800;
+  stroke-width: 0.35;
+}
+.marker .from {
+  fill: none;
+  stroke: #ff9800;
+  stroke-width: 0.15;
+}
+.mlabel {
+  fill: #111;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 0.2;
+  font-family: ui-monospace, Consolas, monospace;
+  pointer-events: none;
+}
+.mid {
+  fill: #fff;
+  font-family: ui-monospace, Consolas, monospace;
+  pointer-events: none;
+}
+.pick line,
+line.pick {
+  stroke: #e91e63;
+  stroke-width: 0.15;
+}
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+}
+.tabs button {
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: none;
+  padding: 8px 10px;
+}
+.tabs button.active {
+  background: none;
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+}
+.tabbody {
+  flex: 1;
+  overflow: auto;
+  padding: 10px 12px;
+}
+.tab h3 {
+  margin: 14px 0 6px;
+  font-size: 14px;
+}
+.tab h3:first-child {
+  margin-top: 0;
+}
+.row,
+.addrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 6px 0;
+}
+.hint {
+  color: var(--muted);
+  margin: 6px 0;
+}
+.callout {
+  background: #eef4ff;
+  border: 1px solid #c4d7fb;
+  padding: 6px 8px;
+  margin: 6px 0;
+}
+.box {
+  border: 1px solid var(--line);
+  margin: 8px 0;
+  padding: 6px 8px;
+}
+.tablewrap {
+  overflow-x: auto;
+}
+table.grid {
+  border-collapse: collapse;
+}
+table.grid th,
+table.grid td {
+  border-bottom: 1px solid var(--line);
+  padding: 2px 4px;
+  text-align: left;
+  vertical-align: middle;
+}
+table.grid th {
+  font-weight: 600;
+  color: var(--muted);
+}
+table.grid tr.selected td {
+  background: #fff4e0;
+}
+.nowrap {
+  white-space: nowrap;
+}
+input[type="text"],
+select,
+textarea {
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 2px 4px;
+  background: #fff;
+}
+input.num {
+  width: 5em;
+  font-family: ui-monospace, Consolas, monospace;
+}
+.color {
+  display: inline-flex;
+  gap: 2px;
+  align-items: center;
+}
+.color input[type="color"] {
+  width: 24px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid var(--line);
+}
+button {
+  font: inherit;
+  border: 1px solid var(--line);
+  background: #f7f8fa;
+  border-radius: 3px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+button.small {
+  padding: 1px 6px;
+}
+button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+button.danger:hover:not(:disabled) {
+  border-color: var(--bad);
+  color: var(--bad);
+}
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+.check {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+}
+.previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+.previews figure {
+  margin: 0;
+  border: 1px solid var(--line);
+  padding: 6px;
+  background: #fff;
+}
+.previews figcaption {
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.previews img {
+  max-width: 100%;
+  max-height: 260px;
+  display: block;
+  margin: 0 auto;
+}
+ul.issues {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0;
+}
+ul.issues li {
+  border-left: 3px solid var(--warn);
+  padding: 2px 8px;
+  margin: 4px 0;
+}
+ul.issues li.error {
+  border-left-color: var(--bad);
+}
+ul.issues pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: ui-monospace, Consolas, monospace;
+}
+ul.issues.compact {
+  margin: 0;
+  padding: 4px 10px;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  max-height: 120px;
+  overflow: auto;
+}
+.rawtab {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.rawtab textarea {
+  flex: 1;
+  min-height: 400px;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 12px;
+}
+.empty {
+  padding: 24px;
+  color: var(--muted);
+}
+.toast {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1d232a;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 4px;
+  max-width: 80vw;
+}
+.toast.bad {
+  background: var(--bad);
+}

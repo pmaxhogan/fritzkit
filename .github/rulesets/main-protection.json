@@ -1,0 +1,43 @@
+{
+  "_comment": "Applied after the HW-391 acceptance passed (spec D25): POST /repos/pmaxhogan/fritzkit/rulesets. Required checks are the job names of ci.yml and fzp-checker.yml. No review requirement (personal repo); Dependabot auto-merge waits for these checks.",
+  "name": "main: required checks",
+  "target": "branch",
+  "enforcement": "active",
+  "bypass_actors": [
+    {
+      "actor_id": 5,
+      "actor_type": "RepositoryRole",
+      "bypass_mode": "always"
+    }
+  ],
+  "conditions": {
+    "ref_name": {
+      "include": ["~DEFAULT_BRANCH"],
+      "exclude": []
+    }
+  },
+  "rules": [
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": false,
+        "required_status_checks": [
+          {
+            "context": "check",
+            "integration_id": 15368
+          },
+          {
+            "context": "fzp-checker",
+            "integration_id": 15368
+          }
+        ]
+      }
+    }
+  ]
+}

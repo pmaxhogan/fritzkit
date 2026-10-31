@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0.751in" height="0.914in" viewBox="0 0 751 914">
+<g id="silkscreen">
+<rect x="53.606" y="90.614" width="692.787" height="818.772" rx="59.055" ry="59.055" fill="none" stroke="#000000" stroke-width="8"/>
+</g>
+<g id="copper1">
+<rect id="connector0pin" x="52.756" y="168.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector1pin" x="52.756" y="268.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector2pin" x="52.756" y="368.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector3pin" x="52.756" y="468.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector4pin" x="52.756" y="568.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector5pin" x="52.756" y="668.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector6pin" x="52.756" y="768.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector7pin" x="652.756" y="168.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector8pin" x="652.756" y="268.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector9pin" x="652.756" y="368.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector10pin" x="652.756" y="468.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector11pin" x="652.756" y="568.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector12pin" x="652.756" y="668.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector13pin" x="652.756" y="768.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<rect id="connector14pin" x="307.874" y="668.504" width="43.307" height="98.425" fill="#F7BD13" stroke="none"/>
+<rect id="connector15pin" x="407.874" y="668.504" width="43.307" height="98.425" fill="#F7BD13" stroke="none"/>
+</g>
+</svg>

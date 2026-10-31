@@ -1,0 +1,181 @@
+{
+  "$schema": "https://raw.githubusercontent.com/pmaxhogan/fritzkit/main/src/core/schema/part.schema.json",
+  "slug": "2s-18650-pack-sim",
+  "title": "2S 18650 battery pack (simulator)",
+  "version": 1,
+  "label": "VCC",
+  "tags": ["battery", "18650", "li-ion", "2s", "power supply", "simulator"],
+  "description": "Two 18650 Li-ion cells in series in a side-by-side holder (about 75 x 40 mm), top view. Cell 1 (top) has its plus end on the right, cell 2 (bottom) has its plus end on the left; the holder strap on the right joins cell 1 plus to cell 2 minus (the midpoint). PACK- (black) leaves the LEFT short edge at cell 1 minus, PACK+ (red) the LEFT edge at cell 2 plus, and BAL (white, the midpoint) the RIGHT edge at the strap. Works in the Fritzing 1.0 simulator: the spice model is two 3.7 V sources, each with its own series internal resistance, stacked PACK- -> cell 1 -> BAL -> cell 2 -> PACK+, so PACK+ to PACK- reads 7.4 V and BAL to PACK- reads 3.7 V. The spice block follows the core part 4 x AAA Battery Mount.fzp. The model reads the cell voltage and internal resistance (per cell) properties; voltage is the nominal pack voltage shown in the Inspector.",
+  "sources": [
+    "https://fritzing.org/",
+    "https://github.com/fritzing/fritzing-parts/blob/develop/core/4%20x%20AAA%20Battery%20Mount.fzp"
+  ],
+  "properties": {
+    "voltage": "7.4V",
+    "cell voltage": "3.7V",
+    "internal resistance": "0.05",
+    "chemistry": "Li-ion",
+    "cells": "2 x 18650 in series"
+  },
+  "outline": {
+    "widthMm": 75,
+    "heightMm": 40,
+    "shape": "rounded",
+    "cornerRadiusMm": 2
+  },
+  "artwork": {
+    "style": "vector",
+    "boardColor": "#202020",
+    "components": [
+      {
+        "kind": "rect",
+        "xMm": 4,
+        "yMm": 1.5,
+        "wMm": 65,
+        "hMm": 18.5,
+        "color": "#1E5AA8",
+        "rxMm": 2,
+        "note": "cell 1 (PACK- to BAL), plus end on the right"
+      },
+      {
+        "kind": "rect",
+        "xMm": 6,
+        "yMm": 20,
+        "wMm": 65,
+        "hMm": 18.5,
+        "color": "#1E5AA8",
+        "rxMm": 2,
+        "note": "cell 2 (BAL to PACK+), plus end on the left"
+      },
+      {
+        "kind": "rect",
+        "xMm": 69,
+        "yMm": 6.25,
+        "wMm": 1.5,
+        "hMm": 9,
+        "color": "#B8B8B8",
+        "rxMm": 0.5,
+        "note": "cell 1 positive cap"
+      },
+      {
+        "kind": "rect",
+        "xMm": 4.5,
+        "yMm": 24.75,
+        "wMm": 1.5,
+        "hMm": 9,
+        "color": "#B8B8B8",
+        "rxMm": 0.5,
+        "note": "cell 2 positive cap"
+      },
+      {
+        "kind": "rect",
+        "xMm": 71.5,
+        "yMm": 6,
+        "wMm": 2,
+        "hMm": 28,
+        "color": "#A0A0A0",
+        "rxMm": 0.5,
+        "note": "holder strap joining cell 1 plus to cell 2 minus (BAL)"
+      },
+      {
+        "kind": "text",
+        "text": "18650  3.7V",
+        "xMm": 36.5,
+        "yMm": 10.75,
+        "sizeMm": 3.2,
+        "color": "#FFFFFF"
+      },
+      {
+        "kind": "text",
+        "text": "18650  3.7V",
+        "xMm": 38.5,
+        "yMm": 29.25,
+        "sizeMm": 3.2,
+        "color": "#FFFFFF"
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "xMm": 65.5,
+        "yMm": 10.75,
+        "sizeMm": 4,
+        "color": "#FFFFFF"
+      },
+      {
+        "kind": "text",
+        "text": "-",
+        "xMm": 7.5,
+        "yMm": 10.75,
+        "sizeMm": 4,
+        "color": "#FFFFFF"
+      },
+      {
+        "kind": "text",
+        "text": "+",
+        "xMm": 9.5,
+        "yMm": 29.25,
+        "sizeMm": 4,
+        "color": "#FFFFFF"
+      },
+      {
+        "kind": "text",
+        "text": "-",
+        "xMm": 67.5,
+        "yMm": 29.25,
+        "sizeMm": 4,
+        "color": "#FFFFFF"
+      }
+    ]
+  },
+  "leads": [
+    {
+      "key": "pack-",
+      "name": "PACK-",
+      "role": "gnd",
+      "color": "#101010",
+      "gaugeMm": 2,
+      "fromXMm": 0,
+      "fromYMm": 10.75,
+      "direction": "left",
+      "lengthMm": 40,
+      "description": "Pack minus (black lead), from the minus end of cell 1 at the left end of the holder"
+    },
+    {
+      "key": "pack+",
+      "name": "PACK+",
+      "role": "power",
+      "color": "#D02020",
+      "gaugeMm": 2,
+      "fromXMm": 0,
+      "fromYMm": 29.25,
+      "direction": "left",
+      "lengthMm": 40,
+      "description": "Pack plus (red lead), 7.4 V nominal, from the plus end of cell 2 at the left end of the holder"
+    },
+    {
+      "key": "bal",
+      "name": "BAL",
+      "role": "power",
+      "color": "#F0F0F0",
+      "gaugeMm": 1.2,
+      "fromXMm": 75,
+      "fromYMm": 20,
+      "direction": "right",
+      "lengthMm": 40,
+      "description": "Balance lead (white), from the holder strap at the right end that joins cell 1 plus to cell 2 minus: the midpoint, 3.7 V nominal above PACK-"
+    }
+  ],
+  "pinIds": {
+    "pack-": 0,
+    "pack+": 1,
+    "bal": 2
+  },
+  "spice": {
+    "lines": [
+      "V{instanceTitle}A {net connector2}_{instanceTitle}_aux1 {net connector0} DC {cell voltage}",
+      "R{instanceTitle}A {net connector2}_{instanceTitle}_aux1 {net connector2} {internal resistance}",
+      "V{instanceTitle}B {net connector1}_{instanceTitle}_aux2 {net connector2} DC {cell voltage}",
+      "R{instanceTitle}B {net connector1}_{instanceTitle}_aux2 {net connector1} {internal resistance}"
+    ]
+  }
+}

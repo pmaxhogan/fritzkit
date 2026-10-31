@@ -1,0 +1,108 @@
+{
+  "part": "~/fritzkit/parts\\hw-391-2s-20a-bms",
+  "moduleId": "fritzkit-hw-391-2s-20a-bms-5442a33f",
+  "date": "2026-10-31T19:31:42.825Z",
+  "render": {
+    "ok": true,
+    "measurement": {
+      "svgPath": "~\\Documents\\node-projects\\fritzkit\\e2e-out\\oneshot-attempt1\\render\\hw-391-2s-20a-bms-render_breadboard.svg",
+      "rootWMm": 48.00599999999999,
+      "rootHMm": 28.143962000000002,
+      "partWMm": 48.07612939999999,
+      "partHMm": 20.0000108,
+      "bounds": {
+        "minX": 0,
+        "minY": 0,
+        "maxX": 1892.761,
+        "maxY": 787.402
+      },
+      "connectorIds": [
+        "connector0pin",
+        "connector1pin",
+        "connector2pin",
+        "connector3pin",
+        "connector4pin"
+      ],
+      "elementsMeasured": 23
+    },
+    "expectedWMm": 48,
+    "expectedHMm": 20,
+    "toleranceMm": 1,
+    "fzzPath": "e2e-out\\oneshot-attempt1\\render\\hw-391-2s-20a-bms-render.fzz",
+    "svgPath": "e2e-out\\oneshot-attempt1\\render\\hw-391-2s-20a-bms-render_breadboard.svg",
+    "fritzing": {
+      "code": 0,
+      "timedOut": false,
+      "stderr": ""
+    },
+    "messages": [
+      "rendered part 48.08 x 20.00 mm (expected 48 x 20, tolerance 1)"
+    ]
+  },
+  "gui": {
+    "ok": true,
+    "moduleId": "fritzkit-hw-391-2s-20a-bms-5442a33f",
+    "sketchPath": "~\\Documents\\node-projects\\fritzkit\\e2e-out\\oneshot-attempt1\\gui\\hw-391-2s-20a-bms-demo.fzz",
+    "screenshots": [
+      "e2e-out\\oneshot-attempt1\\gui\\01-mine-bin.png",
+      "e2e-out\\oneshot-attempt1\\gui\\02-dropped.png",
+      "e2e-out\\oneshot-attempt1\\gui\\03-placed.png",
+      "e2e-out\\oneshot-attempt1\\gui\\04-wire-connector0.png",
+      "e2e-out\\oneshot-attempt1\\gui\\05-wire-connector1.png",
+      "e2e-out\\oneshot-attempt1\\gui\\06-wire-connector2.png",
+      "e2e-out\\oneshot-attempt1\\gui\\07-wire-connector3.png",
+      "e2e-out\\oneshot-attempt1\\gui\\08-wire-connector4.png",
+      "e2e-out\\oneshot-attempt1\\gui\\09-wired.png",
+      "e2e-out\\oneshot-attempt1\\gui\\10-saved.png"
+    ],
+    "verification": {
+      "moduleId": "fritzkit-hw-391-2s-20a-bms-5442a33f",
+      "instanceFound": true,
+      "instanceTitle": "A1",
+      "connectors": [
+        {
+          "connectorId": "connector1",
+          "wires": [
+            "100018"
+          ],
+          "others": []
+        },
+        {
+          "connectorId": "connector4",
+          "wires": [
+            "100027"
+          ],
+          "others": []
+        },
+        {
+          "connectorId": "connector0",
+          "wires": [
+            "100015"
+          ],
+          "others": []
+        },
+        {
+          "connectorId": "connector2",
+          "wires": [
+            "100021"
+          ],
+          "others": []
+        },
+        {
+          "connectorId": "connector3",
+          "wires": [
+            "100024"
+          ],
+          "others": []
+        }
+      ],
+      "wireCount": 5,
+      "wiresToBreadboard": 5
+    },
+    "messages": [
+      "installed fritzkit-hw-391-2s-20a-bms-5442a33f into %APPDATA%/Fritzing/Fritzing/local_parts/user\\fritzkit-hw-391-2s-20a-bms-5442a33f (bin updated: false)",
+      "board at 1316,147 252x103; breadboard at 1120,1001 857x277",
+      "connectors with a wire: 5/5; wires to breadboard: 5"
+    ]
+  }
+}

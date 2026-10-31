@@ -1,0 +1,164 @@
+{
+  "$schema": "https://raw.githubusercontent.com/pmaxhogan/fritzkit/main/src/core/schema/part.schema.json",
+  "slug": "zmr-30a-esc",
+  "title": "ZMR 30A bidirectional ESC",
+  "version": 1,
+  "label": "A",
+  "tags": ["esc", "brushless", "bidirectional", "rc boat", "bec", "zmr"],
+  "description": "ZMR 30A bidirectional (forward/reverse) brushless ESC with a 5 V BEC, as used in RC boats and underwater thrusters. Top view of the heat-shrunk body (about 45 x 24 x 8 mm): the two battery leads leave the LEFT short edge, the three motor phase leads leave the RIGHT short edge, the 3-wire servo cable (signal, BEC 5V, GND) also leaves the left edge below the battery leads. The battery minus lead and the servo cable GND are one common ground on the ESC board, hence the GND bus. BEC 5V is a regulator OUTPUT, not tied to the battery plus. Body size, lead lengths and gauges are typical values for this class of ESC, not measured from a drawing (none is published).",
+  "sources": [
+    "https://rajivelectronics.com/product/zmr-40a-bidirectional-brushless-2-6s-ubec-3a-5v-esc-for-remote-control-car-pneumatic-underwater-propeller",
+    "https://makerbazar.in/products/bidirectional-brushless-esc-with-ubec"
+  ],
+  "properties": {
+    "type": "brushless ESC",
+    "continuous current": "30A",
+    "bec": "5V",
+    "direction": "bidirectional"
+  },
+  "outline": {
+    "widthMm": 45,
+    "heightMm": 24,
+    "shape": "rounded",
+    "cornerRadiusMm": 3
+  },
+  "artwork": {
+    "style": "vector",
+    "boardColor": "#202020",
+    "silkscreen": [
+      {
+        "kind": "text",
+        "text": "ZMR 30A",
+        "xMm": 22.5,
+        "yMm": 11,
+        "sizeMm": 4
+      },
+      {
+        "kind": "text",
+        "text": "BIDIRECTIONAL",
+        "xMm": 22.5,
+        "yMm": 16.5,
+        "sizeMm": 1.8,
+        "color": "#C0C0C0"
+      }
+    ]
+  },
+  "leads": [
+    {
+      "key": "bat+",
+      "name": "BAT+",
+      "role": "power",
+      "color": "#D02020",
+      "gaugeMm": 2.6,
+      "fromXMm": 0,
+      "fromYMm": 3.5,
+      "direction": "left",
+      "lengthMm": 80,
+      "description": "Battery plus (red, about 14 AWG, about 80 mm)"
+    },
+    {
+      "key": "bat-",
+      "name": "BAT-",
+      "role": "gnd",
+      "color": "#101010",
+      "gaugeMm": 2.6,
+      "fromXMm": 0,
+      "fromYMm": 8.5,
+      "direction": "left",
+      "lengthMm": 80,
+      "description": "Battery minus (black, about 14 AWG). Common ground with the servo cable GND"
+    },
+    {
+      "key": "sig",
+      "name": "SIG",
+      "role": "io",
+      "color": "#F08020",
+      "gaugeMm": 1,
+      "fromXMm": 0,
+      "fromYMm": 14.92,
+      "direction": "left",
+      "lengthMm": 150,
+      "description": "Throttle signal input (orange servo wire): 1-2 ms RC PWM, 1.5 ms = stop, below = reverse, above = forward"
+    },
+    {
+      "key": "bec5v",
+      "name": "BEC 5V",
+      "label": "5V",
+      "role": "power",
+      "color": "#D02020",
+      "gaugeMm": 1,
+      "fromXMm": 0,
+      "fromYMm": 17.46,
+      "direction": "left",
+      "lengthMm": 150,
+      "description": "BEC 5 V OUTPUT (red servo wire) to power the receiver or a servo. Do not connect to another 5 V source"
+    },
+    {
+      "key": "gnd",
+      "name": "GND",
+      "role": "gnd",
+      "color": "#6B3A1E",
+      "gaugeMm": 1,
+      "fromXMm": 0,
+      "fromYMm": 20,
+      "direction": "left",
+      "lengthMm": 150,
+      "description": "Servo cable ground (brown servo wire), same net as BAT-"
+    },
+    {
+      "key": "ma",
+      "name": "Motor A",
+      "label": "A",
+      "role": "io",
+      "color": "#101010",
+      "gaugeMm": 2.4,
+      "fromXMm": 45,
+      "fromYMm": 5,
+      "direction": "right",
+      "lengthMm": 60,
+      "description": "Motor phase A (black, about 16 AWG, about 60 mm). Swap any two phases to reverse the default direction"
+    },
+    {
+      "key": "mb",
+      "name": "Motor B",
+      "label": "B",
+      "role": "io",
+      "color": "#101010",
+      "gaugeMm": 2.4,
+      "fromXMm": 45,
+      "fromYMm": 12,
+      "direction": "right",
+      "lengthMm": 60,
+      "description": "Motor phase B (black, about 16 AWG, about 60 mm)"
+    },
+    {
+      "key": "mc",
+      "name": "Motor C",
+      "label": "C",
+      "role": "io",
+      "color": "#101010",
+      "gaugeMm": 2.4,
+      "fromXMm": 45,
+      "fromYMm": 19,
+      "direction": "right",
+      "lengthMm": 60,
+      "description": "Motor phase C (black, about 16 AWG, about 60 mm)"
+    }
+  ],
+  "buses": [
+    {
+      "id": "GND",
+      "pins": ["bat-", "gnd"]
+    }
+  ],
+  "pinIds": {
+    "bat+": 0,
+    "bat-": 1,
+    "sig": 2,
+    "bec5v": 3,
+    "gnd": 4,
+    "ma": 5,
+    "mb": 6,
+    "mc": 7
+  }
+}

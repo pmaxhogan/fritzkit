@@ -11,3 +11,4 @@ uv.lock
 test/**/__snapshots__/
 CHANGELOG.md
 src/core/schema/part.schema.json
+docs/acceptance/*.json

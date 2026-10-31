@@ -256,20 +256,22 @@ function drawPin(part: ResolvedPart, c: ResolvedConnector, L: Layers, ids: boole
   if (hole > 0) {
     L.pins.push(el("circle", { cx: p.x, cy: p.y, r: mmToMil(hole / 2), fill: BB.padHole }));
   }
-  // Label beside the pad, pointing into the board.
-  const size = STYLE.labelFontSizeMil;
-  const gap = mmToMil(BB.labelGapMm) + w / 2;
-  const left = c.xMm < part.spec.outline.widthMm / 2;
-  L.labels.push(
-    text(c.label, {
-      x: left ? p.x + gap : p.x - gap,
-      y: p.y + centreBaseline(size),
-      "font-family": FONT_SANS,
-      "font-size": size,
-      fill: labelColor(c),
-      "text-anchor": left ? "start" : "end",
-    }),
-  );
+  // Label beside the pad, pointing into the board (label "" hides it).
+  if (c.label !== "") {
+    const size = STYLE.labelFontSizeMil;
+    const gap = mmToMil(BB.labelGapMm) + w / 2;
+    const left = c.xMm < part.spec.outline.widthMm / 2;
+    L.labels.push(
+      text(c.label, {
+        x: left ? p.x + gap : p.x - gap,
+        y: p.y + centreBaseline(size),
+        "font-family": FONT_SANS,
+        "font-size": size,
+        fill: labelColor(c),
+        "text-anchor": left ? "start" : "end",
+      }),
+    );
+  }
   L.terminals.push(terminal(c, p, hole > 0 ? BB.padHole : STYLE.contactColor, ids));
 }
 
@@ -461,6 +463,7 @@ function drawHeaderLabels(part: ResolvedPart, group: ResolvedConnector[], L: Lay
   const lastRow = Math.max(...group.map((c) => c.header!.row));
   const size = headerLabelSize(group, ref.orientation, mmToMil(ref.pitchMm));
   for (const c of group) {
+    if (c.label === "") continue;
     const hr = c.header!;
     const halfMm =
       hr.kind === "castellated"

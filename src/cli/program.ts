@@ -194,9 +194,14 @@ export function buildProgram(
 
   program
     .command("ui [part]")
-    .description("open the part editor in the browser (coming in a later release)")
-    .option("--port <n>", "port to listen on")
-    .action(run((ctx, part: string | undefined, o: { port?: string }) => uiCommand(part, o, ctx)));
+    .description("open the part editor in the browser (local server on 127.0.0.1)")
+    .option("--port <n>", "port to listen on (default 5173, or the next free one)")
+    .option("--no-open", "print the URL instead of opening the browser")
+    .action(
+      run((ctx, part: string | undefined, o: { port?: string; open?: boolean }) =>
+        uiCommand(part, o, ctx),
+      ),
+    );
 
   return program;
 }

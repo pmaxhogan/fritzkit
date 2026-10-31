@@ -21,8 +21,27 @@ fritzkit new <slug> --title "<human title>"  # creates <workspace>/<slug>/part.j
 Choose a slug that names the product, lowercase with dashes (`xiao-esp32-c6`,
 `relay-1ch-5v`). Over MCP: `fritzkit_init_workspace`, then `fritzkit_new_part`.
 
-`fritzkit new` writes a small placeholder spec (a generic breakout with one pin). Replace
-all of it.
+`fritzkit new` writes a TEMPLATE: a small placeholder spec (a generic breakout with one
+pin). Replace the whole part.json with your own spec; do not edit the template in place.
+Every placeholder field must be replaced. Placeholder values to grep for before export:
+description `Generic sensor breakout. Replace this with what the part is.`, tags `sensor` and
+`breakout`, outline 20 x 15 mm, one pin `VCC` (description `Supply voltage`, x 3.81, y 7.62):
+`grep -nE 'VCC|Generic sensor|breakout' part.json`.
+
+Environment notes:
+
+- Check for MCP: if tools named `fritzkit_*` are in your tool list the MCP server is
+  available; otherwise use the CLI. The two are equivalent.
+- `--workspace` may be relative to the cwd.
+- WebFetch-style tools summarise pages and cannot show images. Download images directly
+  (`curl -o assets/top.png <url>`) and open them with the image reader.
+- Image readers downscale large images (for example 7680 px wide to 2000 px). Measure px/mm
+  on the SAME scaled image you read, or scale your coordinates by the ratio (original width
+  divided by scaled width).
+- Seeed XIAO ESP32-C6 pinout images:
+  https://files.seeedstudio.com/wiki/SeeedStudio-XIAO-ESP32C6/img/XIAO_ESP32-C6_front_pinout.png
+  and
+  https://files.seeedstudio.com/wiki/SeeedStudio-XIAO-ESP32C6/img/XIAO_ESP32-C6_back_pinout.png
 
 ## 1. Gather sources
 
@@ -32,14 +51,23 @@ fritzkit never goes online. Use your own tools and save what you need into
 ### Amazon
 
 - Get the ASIN (10 characters after `/dp/` or `/gp/product/` in the link).
-- Fetch `https://www.amazon.com/gp/aw/d/<ASIN>` (the mobile form) with the web_fetch MCP,
-  or open it in Claude in Chrome. The desktop `/dp/<ASIN>` form answers automated clients
-  with a captcha; do not retry it, do not try to get around it (no header spoofing, no
-  scripted solving). If the mobile form also fails, ask the user for the images.
+- Fetch the mobile form with a plain GET, no header spoofing:
+  `curl -sSL https://www.amazon.com/gp/aw/d/<ASIN> -o assets/listing.html`. It returns the
+  full page, gallery included. The desktop `/dp/<ASIN>` form tends to answer with a captcha.
+  NEVER solve or script around a captcha: if a captcha or robot-check page comes back, stop
+  and use the browser tool, or ask the user to save the images into `assets/`.
+- Extract the full-resolution image URLs: `grep -o '"hiRes":"[^"]*"' assets/listing.html`.
+- Download them from `m.media-amazon.com` with a plain GET (see below).
+- For the text (title, bullets), read the HTML you already have; the web_fetch MCP and Claude
+  in Chrome are fallbacks (web_fetch markdown mode may return only the buy box, HTML mode may
+  truncate before the gallery).
+- Listings mix products: a gallery image can show a different board (a 3S 40A board in a 2S
+  20A listing). Read the model on the silkscreen and compare it with the title before
+  measuring; prefer the image whose silkscreen matches the title.
 - Read the title, bullet points and description for: board dimensions, pin list,
   voltages, chip names. Treat the "Product Dimensions" / "Item dimensions" field with
   suspicion - it is often the package size or copied from another listing.
-- Collect the gallery image URLs. They live on `https://m.media-amazon.com/images/I/<id>.<ext>`
+- The gallery image URLs live on `https://m.media-amazon.com/images/I/<id>.<ext>`
   and are fetchable with a plain GET. A URL like `.../I/71abc._AC_SX679_.jpg` has a size
   token; removing it (`.../I/71abc.jpg`) gives the largest version.
 - Download into `assets/` with descriptive names: `top.jpg` (orthographic top view),
@@ -92,9 +120,9 @@ Record every URL you used for `sources`.
    measurements derived from the pitch. Note the disagreement for the report.
 4. Shape: `rect` for square corners, `rounded` with `cornerRadiusMm`, or `custom` with an
    SVG path in mm for odd shapes. Mounting holes go in `outline.holes`.
-5. Orientation: put the long edge on x (`widthMm` = long side). Show the top (component)
+5. Orientation: put the long edge on x (`widthMm` = long side) unless the board is clearly portrait (the XIAO ESP32-C6 is 17.8 x 21 mm with USB at the top: keep it portrait). Show the top (component)
    side with silkscreen readable. If the board has an obvious "input" side (USB, power),
-   put it at the left. Write the orientation into `description`.
+   put it at the left (at the top for a portrait board). Write the orientation into `description`.
 
 ## 3. Identify every pad and pin
 
@@ -105,7 +133,7 @@ For each connection point decide:
 
 | question                      | where it goes                                                                                          |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------ |
-| what does the silkscreen say? | `name` (exact text; `label` if the name is long)                                                       |
+| what does the silkscreen say? | `label` (exact text) when it differs from the documented `name`; else `name`                           |
 | what does it do?              | `description` (function, voltage, alternate functions)                                                 |
 | electrical role?              | `role`: power, gnd, io, analog, pwm, i2c, spi, uart, usb, clock, reset, enable, nc, other              |
 | same copper as another pad?   | one `buses` entry per shared net                                                                       |
@@ -113,6 +141,27 @@ For each connection point decide:
 | a lone or irregular pad?      | `pins` with `type` female (through-hole pad, socket, screw terminal), male (pin) or pad (SMD, no hole) |
 | a wire hanging off the board? | `leads` (`fromXMm`/`fromYMm` where it leaves the board, `direction`, `lengthMm`, `color`)              |
 | copper size and hole?         | `pad` (`shape`, `wMm` along x, `hMm` along y, `holeMm`)                                                |
+
+### Names, labels and conflicts
+
+- `name` is the connector name (fzp, Fritzing hover and Inspector). `label` is the text drawn
+  next to the pad (breadboard) and on the schematic pin; it defaults to `name`.
+- When the wiki/datasheet name and the silkscreen name differ, use the silkscreen text as
+  `label` and the documented function as `name` (e.g. name `5V`, label `VBUS` if that is what
+  is printed), and put the alias in `description`.
+- `"label": ""` hides the breadboard label of that pin (useful for back-side test pads). In
+  the schematic an empty label is not replaced by `name`: the pin is drawn with an empty
+  label.
+
+### Frame and rotation recipe
+
+Top view, silkscreen readable, USB/connector on the LEFT unless the board is clearly
+portrait (then keep it portrait, USB at the top; the XIAO example is the portrait case). For a back-side photo mirror x before mapping (`x = W - x_back`, W = `widthMm`):
+
+```
+top photo:   x_mm = (px_x - bboxLeftPx) / pxPerMm
+back photo:  x_mm = W - (px_x - bboxLeftPx) / pxPerMm
+```
 
 ### Nets and buses
 
@@ -124,6 +173,12 @@ For each connection point decide:
   in the report for the user to check with a multimeter.
 
 ### Measuring positions (manual calibration)
+
+`skills/fritzkit/scripts/measure.py` automates the pixel work (Python 3 + Pillow, run it as
+`uv run --with pillow python -I measure.py <bbox|grid|holes> <image> ...`): `bbox` finds the
+board bbox and px/mm, `grid` draws a labelled 1 mm grid over the board so pad positions can be
+read in mm, `holes` lists dark round blobs with their centres in mm. See the skill's step 3
+for an example. The manual procedure below is what it replaces.
 
 1. In the top-view image, find the board's pixel bounding box: the left, top, right and
    bottom edges of the PCB itself (not the shadow, not protruding connectors). Image
@@ -160,15 +215,31 @@ photo left-to-right before measuring. Say "BACK side" in its description.
 
 Write `part.json` (or over MCP: `fritzkit_set_part` with the whole spec, then
 `fritzkit_patch_part` with JSON-patch operations for small fixes, `fritzkit_add_pins` to
-append pins). The complete XIAO ESP32-C6 example is in [part-json.md](part-json.md#example-seeed-studio-xiao-esp32-c6)
-and in the skill; an ESC with leads and a relay module are in
+append pins). The complete XIAO ESP32-C6 example is in the skill ([SKILL.md](../skills/fritzkit/SKILL.md)) and as a golden part in [examples/xiao-esp32-c6](../examples/xiao-esp32-c6/README.md); an ESC with leads and a relay module are in
 [examples.md](../skills/fritzkit/reference/examples.md).
 
 Rules:
 
 - Keys are short, unique across the whole part, and permanent (`gnd`, `d7`, `vbat`).
-- `pinIds` is managed by fritzkit. Leave it out of a new spec; after the first validate it
-  appears in part.json. Never edit or renumber it.
+- fritzkit manages `pinIds`. Leave it out of a new spec; after the first validate it appears
+  in part.json. Do not hand-edit it for a part that has ever been exported or installed
+  (connector ids must stay stable). For a brand-new part you may delete the `pinIds` object
+  before the first export to close gaps. The `connector-numbering` gap warning is only a
+  warning.
+- Symbol-only or non-Latin silkscreen (a plus or minus in a circle, Chinese text): `name` is
+  the conventional ASCII function name (`P+`, `P-`, `VCC`, `GND`); put what is printed (the
+  symbol or the translation) in `description`.
+- There is no field to move a pin label. `"label": ""` suppresses the breadboard label.
+- Breadboard layer order: silkscreen and `components` are drawn UNDER header bodies, pads and
+  pin labels, so put text where pads are not.
+- Schematic: `by-role` is the only layout. One box; pins grouped by role onto sides (power,
+  usb, enable, reset left; gnd bottom; everything else right), in spec order within a role;
+  every bused GND pin still gets its own pin. `schematic.sides` overrides the side per role.
+  An explicit per-pin ordering hint is not available yet.
+- The XIAO example in the skill omits the back-side test pads (MTDO, MTDI, MTCK, MTMS, EN,
+  BOOT, a second GND and 3V3; add them with `"label": ""` if wanted). It buses BAT- with
+  GND because Seeed's KiCad symbol names that pad GND (the wiki does not say it); BAT+/BAT-
+  are measured from Seeed's KiCad footprint. Without such evidence, leave a pin unbused.
 - Leave `family` unset (it defaults to the slug) unless you are deliberately putting several
   slugs in one swap group.
 
@@ -194,10 +265,26 @@ Compare the breadboard PNG with the top photo, systematically:
 6. Schematic view: supply pins at the top, GND at the bottom, no duplicated GND pins that
    should have been one bus (a bus is not visible in the drawing, but `fritzkit validate`
    output and the fzp list it).
-7. PCB view: pad shapes and holes plausible; SMD pads have no hole.
+7. PCB view: pad shapes and holes plausible; SMD pads have no hole. Through-hole pads are an
+   SVG ring (`<circle fill="none">`, copper = the stroke), and rectangular pads also get a
+   solid rect under it, so the PNG can look solid. Read the drill from the ring:
+   `drill = 2 * (r - stroke-width / 2)` in mils.
 
 Fix and repeat until the render matches. Optionally run
-`fritzkit validate <slug> --checker` for Fritzing's own part checker (needs `uv`).
+`fritzkit validate <slug> --checker` for Fritzing's own part checker (needs `uv`). The plain
+output may show only `No issues found.`; `--json` has the `checker` object (`ran`, `summary`,
+`errors`, `warnings`), the reliable way to confirm it ran.
+
+`validate` and `render` also take a path to a `.fzpz`. `validate <file.fzpz>` checks the
+package (zip entries, fzp XML, layer ids, connector refs, svg roots, module id, required
+tags), not your spec: there are no schema or bus checks. `render <file.fzpz>` writes that
+package's SVGs into `build/` next to it.
+
+`render` writes `breadboard.svg`, `schematic.svg`, `pcb.svg`, `icon.svg` (or just the one
+given by `--view`) into `<workspace>/<slug>/build/` (override with `--out <dir>`). `--png`
+ALSO writes `<view>.png` beside each SVG (it does not replace them). `--view` limits the run
+to ONE view (breadboard, schematic, pcb or icon; default all), for fast re-checks.
+`fritzkit render --help` lists `--view`, `--out` and `--png`.
 
 ## 5. Export and install
 
@@ -215,6 +302,8 @@ fritzkit prune <slug> --yes     # remove older installed versions of this family
   gate; do not use it to ship a part with errors.
 - Or give the user the `.fzpz`: in Fritzing, File > Open on the file imports it into My
   Parts.
+- Old `.fzpz` exports stay in the part folder (each export is a new moduleId): delete
+  stale ones or use the path `export` printed.
 - Every content change gives a new moduleId (Fritzing rejects a duplicate id), so each
   install adds a version. `prune <slug-or-family>` is a dry run that lists the older
   versions; with `--yes` it deletes them and keeps the newest (`--keep <moduleId>` keeps a

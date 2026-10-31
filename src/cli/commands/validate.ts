@@ -24,7 +24,20 @@ export interface ValidateData {
   ok: boolean;
   moduleId?: string;
   issues: Issue[];
-  checker?: Pick<CheckerResult, "available" | "exitCode" | "errors" | "warnings">;
+  checker?: Pick<CheckerResult, "available" | "exitCode" | "errors" | "warnings"> & {
+    /** true when the Fritzing checker actually ran; false when it was skipped. */
+    ran: boolean;
+    /** The one-line status printed by the CLI. */
+    summary: string;
+  };
+}
+
+/** One-line status of the Fritzing checker run. */
+export function checkerSummary(r: CheckerResult): string {
+  if (!r.available) {
+    return `fzp checker: skipped - ${r.errors[0] ?? "not available"}`;
+  }
+  return `fzp checker: ran (${r.errors.length} errors, ${r.warnings.length} warnings)`;
 }
 
 /** Compile warnings ("photo asset missing ...") as warning issues. */
@@ -94,6 +107,8 @@ export async function validateCommand(
       exitCode: r.exitCode,
       errors: r.errors,
       warnings: r.warnings,
+      ran: r.available,
+      summary: checkerSummary(r),
     };
     issues.push(...checkerIssues(r));
   }
@@ -103,5 +118,7 @@ export async function validateCommand(
   const data: ValidateData = { target: label, ok, issues };
   if (moduleId) data.moduleId = moduleId;
   if (checker) data.checker = checker;
-  return { exitCode: ok ? 0 : 1, text: `${head}\n${formatIssues(issues)}`, data };
+  const lines = [head, formatIssues(issues)];
+  if (checker) lines.push(checker.summary);
+  return { exitCode: ok ? 0 : 1, text: lines.join("\n"), data };
 }

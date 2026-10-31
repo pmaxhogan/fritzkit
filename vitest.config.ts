@@ -8,7 +8,7 @@ export default defineConfig({
       reportsDirectory: "coverage",
       // The UI (src/ui) has no unit tests by design (spec D30); keep it out of the
       // denominator so the coverage ratchet measures the core, CLI and MCP only.
-      include: ["src/core/**/*.ts", "src/cli/**/*.ts", "src/mcp/**/*.ts"],
+      include: ["src/core/**/*.ts", "src/cli/**/*.ts", "src/mcp/**/*.ts", "src/server/**/*.ts"],
       exclude: ["**/*.test.ts", "src/cli/main.ts", "src/mcp/main.ts"],
     },
   },

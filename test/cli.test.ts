@@ -458,8 +458,12 @@ describe("doctor / schema / import-kicad / ui", () => {
     expect(one.text).toContain("6 pads");
   });
 
-  it("ui is not implemented yet", async () => {
-    await expect(uiCommand(undefined, {}, ctx)).rejects.toBeInstanceOf(NotImplementedError);
+  it("ui exits 2 with build instructions when the app is not built", async () => {
+    const env = { ...ctx.env, FRITZKIT_UI_DIST: join(t.root, "no-ui") };
+    const r = await uiCommand(undefined, {}, { ...ctx, env });
+    expect(r.exitCode).toBe(2);
+    expect(r.text).toContain("npm run ui:build");
+    expect(r.text).toContain("npm run ui:dev");
   });
 });
 
@@ -483,8 +487,10 @@ describe("runCli", () => {
     expect(unknown.err).toMatch(/^fritzkit: unknown part "nope"/);
     const j = await cli("--json", "validate", "nope");
     expect(JSON.parse(j.out)).toMatchObject({ exitCode: 1 });
-    const ui = await cli("ui");
-    expect(ui).toMatchObject({ code: 2, err: "fritzkit ui is coming in a later release\n" });
+    ctx.env.FRITZKIT_UI_DIST = join(t.root, "no-ui");
+    const ui = await cli("ui", "--no-open");
+    expect(ui.code).toBe(2);
+    expect(ui.out).toContain("the editor app is not built");
   });
 
   it("prints zod errors by path with the schema hint", async () => {

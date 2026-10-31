@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1in" height="0.7in" viewBox="0 0 1000 700">
+  <g id="schematic">
+    <rect x="100" y="4.85" width="800" height="595.15" fill="#FFFFFF" stroke="#000000" stroke-width="9.7"/>
+    <text x="500" y="59" font-family="Noto Sans" font-size="59" fill="#000000" text-anchor="middle">ZMR 30A bidirect...</text>
+    <line id="connector0pin" x1="100" y1="100" x2="0" y2="100" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector0terminal" x="-0.5" y="99.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="125" y="117.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start">BAT+</text>
+    <line id="connector3pin" x1="100" y1="200" x2="0" y2="200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector3terminal" x="-0.5" y="199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="125" y="217.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start">5V</text>
+    <line id="connector2pin" x1="900" y1="100" x2="1000" y2="100" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector2terminal" x="999.5" y="99.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="875" y="117.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">SIG</text>
+    <line id="connector5pin" x1="900" y1="200" x2="1000" y2="200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector5terminal" x="999.5" y="199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="875" y="217.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">A</text>
+    <line id="connector6pin" x1="900" y1="300" x2="1000" y2="300" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector6terminal" x="999.5" y="299.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="875" y="317.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">B</text>
+    <line id="connector7pin" x1="900" y1="400" x2="1000" y2="400" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector7terminal" x="999.5" y="399.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="875" y="417.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">C</text>
+    <line id="connector1pin" x1="200" y1="600" x2="200" y2="700" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector1terminal" x="199.5" y="699.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="217.2" y="575" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 217.2 575)">BAT-</text>
+    <line id="connector4pin" x1="300" y1="600" x2="300" y2="700" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector4terminal" x="299.5" y="699.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="317.2" y="575" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 317.2 575)">GND</text>
+  </g>
+</svg>

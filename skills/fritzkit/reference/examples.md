@@ -1,8 +1,9 @@
 # fritzkit worked examples
 
 Each example is a complete, valid `part.json` that compiles to a checker-clean `.fzpz`.
-Field reference: [part-json.md](part-json.md). The XIAO ESP32-C6 example is in
-[../SKILL.md](../SKILL.md).
+Field reference: [part-json.md](part-json.md). The XIAO ESP32-C6 example (headers, castellated
+pads, a bus; a portrait board, USB at the top) is in [../SKILL.md](../SKILL.md); the second worked example, a pads-only board
+measured from a listing photo, is "Pads-only board measured from a photo" below.
 
 ## Brushless ESC with wire leads
 
@@ -200,6 +201,58 @@ terminal pitch is 5 mm and the terminal accepts wires). Mounting holes go in
 Notes: NO, COM and NC are three different nets; no bus. Modules with an extra `JD-VCC`
 jumper header get those pins as a second header; bus `VCC` with `JD-VCC` only if the jumper
 is a fixed trace, not a removable jumper.
+
+## Pads-only board measured from a photo (HW-391 2S 20A balance board)
+
+The full spec is [examples/hw391-2s-20a-bms/part.json](../../../examples/hw391-2s-20a-bms/part.json)
+(see its [README](../../../examples/hw391-2s-20a-bms/README.md) for the measured-vs-golden
+table). It was built by a fresh agent from an Amazon listing using only this skill and the
+CLI. What it shows:
+
+- No headers, no leads: five through-hole solder pads, each a `pins` entry with
+  `type: "female"` and a measured `pad` (`rect`, `wMm`, `hMm`, `holeMm`). Outline 48 x 20 mm
+  from the listing's dimension callout; pad centres from the orthographic top photo at a
+  known px/mm (the `measure.py` `bbox` and `grid` helpers), good to about 0.3 mm.
+- Conventional names for symbol-only silkscreen: the charger/load pads are printed as a plus
+  or minus inside a circle, so `name` is `P+` / `P-` and the `description` says what is
+  printed. The cell pads keep their printed text (`0V`, `4.2V`, `8.4V`).
+- An INFERRED bus: `8.4V` and `P+` look like one copper pour on the back photo, so
+  `"buses": [{ "id": "BPLUS", "pins": ["bplus", "pplus"] }]`. `0V` and `P-` are NOT bused (the
+  MOSFETs sit between them). Inferred nets belong in the report as "check with a meter".
+- Position and size, abridged (all in mm, origin top-left, x right, y down):
+
+```json
+{
+  "outline": { "widthMm": 48, "heightMm": 20, "shape": "rect" },
+  "pins": [
+    {
+      "key": "pplus",
+      "name": "P+",
+      "description": "Charge/discharge plus (silkscreen: plus in a circle); same copper as 8.4V",
+      "role": "power",
+      "type": "female",
+      "xMm": 7.55,
+      "yMm": 12.6,
+      "pad": { "shape": "rect", "wMm": 4.3, "hMm": 3.1, "holeMm": 1.9 }
+    },
+    {
+      "key": "bplus",
+      "name": "8.4V",
+      "role": "power",
+      "type": "female",
+      "xMm": 45.85,
+      "yMm": 17.4,
+      "pad": { "shape": "rect", "wMm": 4.3, "hMm": 3.1, "holeMm": 1.6 }
+    }
+  ],
+  "buses": [{ "id": "BPLUS", "pins": ["bplus", "pplus"] }]
+}
+```
+
+Lessons: verify the silkscreen model in the photo matches the listing title before
+measuring; use a dimension callout for the outline and the photo only for pad positions;
+the rectangular pads render as solid copper in the PCB preview, the drill is in the SVG
+ring (see "Reading the PCB preview" in [../SKILL.md](../SKILL.md)).
 
 ## Starting from a KiCad footprint
 

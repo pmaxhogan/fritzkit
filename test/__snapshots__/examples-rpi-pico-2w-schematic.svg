@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1.2in" height="3.2in" viewBox="0 0 1200 3200">
+  <g id="schematic">
+    <rect x="100" y="4.85" width="1000" height="3095.15" fill="#FFFFFF" stroke="#000000" stroke-width="9.7"/>
+    <text x="600" y="59" font-family="Noto Sans" font-size="59" fill="#000000" text-anchor="middle">Raspberry Pi Pico 2 W</text>
+    <line id="connector20pin" x1="100" y1="100" x2="0" y2="100" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector20terminal" x="-0.5" y="99.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="125" y="117.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start">VBUS</text>
+    <line id="connector21pin" x1="100" y1="200" x2="0" y2="200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector21terminal" x="-0.5" y="199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="125" y="217.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start">VSYS</text>
+    <line id="connector23pin" x1="100" y1="300" x2="0" y2="300" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector23terminal" x="-0.5" y="299.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="125" y="317.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start">3V3_EN</text>
+    <line id="connector24pin" x1="100" y1="400" x2="0" y2="400" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector24terminal" x="-0.5" y="399.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="125" y="417.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start">3V3(OUT)</text>
+    <line id="connector30pin" x1="100" y1="500" x2="0" y2="500" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector30terminal" x="-0.5" y="499.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="125" y="517.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start">RUN</text>
+    <line id="connector0pin" x1="1100" y1="100" x2="1200" y2="100" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector0terminal" x="1199.5" y="99.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="117.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP0</text>
+    <line id="connector1pin" x1="1100" y1="200" x2="1200" y2="200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector1terminal" x="1199.5" y="199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="217.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP1</text>
+    <line id="connector3pin" x1="1100" y1="300" x2="1200" y2="300" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector3terminal" x="1199.5" y="299.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="317.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP2</text>
+    <line id="connector4pin" x1="1100" y1="400" x2="1200" y2="400" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector4terminal" x="1199.5" y="399.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="417.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP3</text>
+    <line id="connector5pin" x1="1100" y1="500" x2="1200" y2="500" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector5terminal" x="1199.5" y="499.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="517.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP4</text>
+    <line id="connector6pin" x1="1100" y1="600" x2="1200" y2="600" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector6terminal" x="1199.5" y="599.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="617.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP5</text>
+    <line id="connector8pin" x1="1100" y1="700" x2="1200" y2="700" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector8terminal" x="1199.5" y="699.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="717.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP6</text>
+    <line id="connector9pin" x1="1100" y1="800" x2="1200" y2="800" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector9terminal" x="1199.5" y="799.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="817.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP7</text>
+    <line id="connector10pin" x1="1100" y1="900" x2="1200" y2="900" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector10terminal" x="1199.5" y="899.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="917.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP8</text>
+    <line id="connector11pin" x1="1100" y1="1000" x2="1200" y2="1000" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector11terminal" x="1199.5" y="999.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="1017.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP9</text>
+    <line id="connector13pin" x1="1100" y1="1100" x2="1200" y2="1100" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector13terminal" x="1199.5" y="1099.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="1117.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP10</text>
+    <line id="connector14pin" x1="1100" y1="1200" x2="1200" y2="1200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector14terminal" x="1199.5" y="1199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="1217.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP11</text>
+    <line id="connector15pin" x1="1100" y1="1300" x2="1200" y2="1300" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector15terminal" x="1199.5" y="1299.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="1317.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP12</text>
+    <line id="connector16pin" x1="1100" y1="1400" x2="1200" y2="1400" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector16terminal" x="1199.5" y="1399.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="1417.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP13</text>
+    <line id="connector18pin" x1="1100" y1="1500" x2="1200" y2="1500" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector18terminal" x="1199.5" y="1499.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="1517.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP14</text>
+    <line id="connector19pin" x1="1100" y1="1600" x2="1200" y2="1600" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector19terminal" x="1199.5" y="1599.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="1617.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP15</text>
+    <line id="connector25pin" x1="1100" y1="1700" x2="1200" y2="1700" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector25terminal" x="1199.5" y="1699.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="1717.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">ADC_VREF</text>
+    <line id="connector26pin" x1="1100" y1="1800" x2="1200" y2="1800" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector26terminal" x="1199.5" y="1799.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="1817.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP28</text>
+    <line id="connector28pin" x1="1100" y1="1900" x2="1200" y2="1900" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector28terminal" x="1199.5" y="1899.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="1917.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP27</text>
+    <line id="connector29pin" x1="1100" y1="2000" x2="1200" y2="2000" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector29terminal" x="1199.5" y="1999.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="2017.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP26</text>
+    <line id="connector31pin" x1="1100" y1="2100" x2="1200" y2="2100" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector31terminal" x="1199.5" y="2099.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="2117.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP22</text>
+    <line id="connector33pin" x1="1100" y1="2200" x2="1200" y2="2200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector33terminal" x="1199.5" y="2199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="2217.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP21</text>
+    <line id="connector34pin" x1="1100" y1="2300" x2="1200" y2="2300" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector34terminal" x="1199.5" y="2299.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="2317.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP20</text>
+    <line id="connector35pin" x1="1100" y1="2400" x2="1200" y2="2400" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector35terminal" x="1199.5" y="2399.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="2417.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP19</text>
+    <line id="connector36pin" x1="1100" y1="2500" x2="1200" y2="2500" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector36terminal" x="1199.5" y="2499.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="2517.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP18</text>
+    <line id="connector38pin" x1="1100" y1="2600" x2="1200" y2="2600" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector38terminal" x="1199.5" y="2599.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="2617.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP17</text>
+    <line id="connector39pin" x1="1100" y1="2700" x2="1200" y2="2700" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector39terminal" x="1199.5" y="2699.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="2717.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">GP16</text>
+    <line id="connector40pin" x1="1100" y1="2800" x2="1200" y2="2800" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector40terminal" x="1199.5" y="2799.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="2817.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">SWCLK</text>
+    <line id="connector42pin" x1="1100" y1="2900" x2="1200" y2="2900" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector42terminal" x="1199.5" y="2899.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1075" y="2917.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">SWDIO</text>
+    <line id="connector2pin" x1="200" y1="3100" x2="200" y2="3200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector2terminal" x="199.5" y="3199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="217.2" y="3075" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 217.2 3075)">GND</text>
+    <line id="connector7pin" x1="300" y1="3100" x2="300" y2="3200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector7terminal" x="299.5" y="3199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="317.2" y="3075" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 317.2 3075)">GND</text>
+    <line id="connector12pin" x1="400" y1="3100" x2="400" y2="3200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector12terminal" x="399.5" y="3199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="417.2" y="3075" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 417.2 3075)">GND</text>
+    <line id="connector17pin" x1="500" y1="3100" x2="500" y2="3200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector17terminal" x="499.5" y="3199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="517.2" y="3075" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 517.2 3075)">GND</text>
+    <line id="connector22pin" x1="600" y1="3100" x2="600" y2="3200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector22terminal" x="599.5" y="3199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="617.2" y="3075" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 617.2 3075)">GND</text>
+    <line id="connector27pin" x1="700" y1="3100" x2="700" y2="3200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector27terminal" x="699.5" y="3199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="717.2" y="3075" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 717.2 3075)">AGND</text>
+    <line id="connector32pin" x1="800" y1="3100" x2="800" y2="3200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector32terminal" x="799.5" y="3199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="817.2" y="3075" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 817.2 3075)">GND</text>
+    <line id="connector37pin" x1="900" y1="3100" x2="900" y2="3200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector37terminal" x="899.5" y="3199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="917.2" y="3075" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 917.2 3075)">GND</text>
+    <line id="connector41pin" x1="1000" y1="3100" x2="1000" y2="3200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector41terminal" x="999.5" y="3199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="1017.2" y="3075" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 1017.2 3075)">GND</text>
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0.32in" height="0.32in" viewBox="0 0 320 320">
+<g id="icon">
+  <g transform="translate(17.261 85.975) scale(0.094)">
+  <rect x="47.622" y="4" width="2944.756" height="1566.803" rx="74.74" ry="74.74" fill="#202020" stroke="#161616" stroke-width="8"/>
+  <rect x="201.102" y="59.055" width="2559.055" height="728.346" rx="78.74" ry="78.74" fill="#1E5AA8"/>
+  <rect x="279.843" y="787.402" width="2559.055" height="728.346" rx="78.74" ry="78.74" fill="#1E5AA8"/>
+  <rect x="2760.157" y="246.063" width="59.055" height="354.331" rx="19.685" ry="19.685" fill="#B8B8B8"/>
+  <rect x="220.787" y="974.409" width="59.055" height="354.331" rx="19.685" ry="19.685" fill="#B8B8B8"/>
+  <rect x="2858.583" y="236.22" width="78.74" height="1102.362" rx="19.685" ry="19.685" fill="#A0A0A0"/>
+  <text x="1480.63" y="467.323" font-family="Noto Sans" font-size="125.984" fill="#FFFFFF" text-anchor="middle">18650  3.7V</text>
+  <text x="1559.37" y="1195.669" font-family="Noto Sans" font-size="125.984" fill="#FFFFFF" text-anchor="middle">18650  3.7V</text>
+  <text x="2622.362" y="478.346" font-family="Noto Sans" font-size="157.48" fill="#FFFFFF" text-anchor="middle">+</text>
+  <text x="338.898" y="478.346" font-family="Noto Sans" font-size="157.48" fill="#FFFFFF" text-anchor="middle">-</text>
+  <text x="417.638" y="1206.693" font-family="Noto Sans" font-size="157.48" fill="#FFFFFF" text-anchor="middle">+</text>
+  <text x="2701.102" y="1206.693" font-family="Noto Sans" font-size="157.48" fill="#FFFFFF" text-anchor="middle">-</text>
+  <line x1="43.622" y1="423.228" x2="-1531.181" y2="423.228" stroke="#101010" stroke-width="78.74" stroke-linecap="round"/>
+  <line x1="43.622" y1="1151.575" x2="-1531.181" y2="1151.575" stroke="#D02020" stroke-width="78.74" stroke-linecap="round"/>
+  <line x1="2996.378" y1="787.402" x2="4571.181" y2="787.402" stroke="#F0F0F0" stroke-width="47.244" stroke-linecap="round"/>
+  <circle cx="43.622" cy="423.228" r="39.37" fill="#9A916C"/>
+  <circle cx="43.622" cy="1151.575" r="39.37" fill="#9A916C"/>
+  <circle cx="2996.378" cy="787.402" r="23.622" fill="#9A916C"/>
+</g>
+</g>
+</svg>

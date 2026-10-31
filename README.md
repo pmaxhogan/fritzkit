@@ -66,8 +66,8 @@ tells Claude how to fetch the listing and images, measure the board, name every 
 
 ## The agent workflow
 
-1. Gather sources with the agent's own tools (listing via Amazon's mobile URL form, gallery
-   images, datasheet PDFs, manufacturer wiki, Digikey page, or a KiCad footprint).
+1. Gather sources with the agent's own tools (listing via Amazon's mobile URL with a plain
+   `curl`, gallery images from the page's `hiRes` URLs, datasheet PDFs, manufacturer wiki, Digikey page, or a KiCad footprint).
 2. Determine the outline in mm from dimension callouts or a drawing, cross-checked.
 3. Identify every pad: silkscreen name, role, net (buses), connector kind, position measured
    from the photo at a known px/mm.
@@ -87,80 +87,199 @@ top-left corner of the outline, x right, y down (like a top-down photo), positio
 centres.
 
 Example, the [Seeed Studio XIAO ESP32-C6](https://wiki.seeedstudio.com/xiao_esp32c6_getting_started/)
-(top view, USB-C at the left edge, two rows of 7 castellated pads, GND pads tied by a bus):
+(a portrait board: top view, USB-C at the TOP short edge, two columns of 7 castellated pads
+down the long edges, a 2-pad BAT header on the back, GND pads tied by a bus). Trimmed; the
+full, measured spec is [examples/xiao-esp32-c6](examples/xiao-esp32-c6/README.md):
 
 ```json
 {
   "$schema": "https://raw.githubusercontent.com/pmaxhogan/fritzkit/main/src/core/schema/part.schema.json",
   "slug": "xiao-esp32-c6",
   "title": "Seeed Studio XIAO ESP32-C6",
+  "version": 1,
   "label": "U",
-  "description": "Thumb-sized ESP32-C6 board. Top view, USB-C at the left short edge.",
+  "tags": ["xiao", "esp32-c6", "seeed", "castellated"],
+  "description": "Seeed Studio XIAO ESP32-C6, 21 x 17.8 mm. Top (component) view, USB-C at the TOP short edge, the two columns of 7 castellated 0.1 in pads along the long edges: D0..D6 down the left edge, 5V/GND/3V3/D10/D9/D8/D7 down the right edge. BAT+ and BAT- are pads on the BACK, drawn where they sit seen through the board. BAT- and the side GND pad are the same net (Seeed's KiCad symbol names that pad GND), hence the GND bus.",
   "sources": ["https://wiki.seeedstudio.com/xiao_esp32c6_getting_started/"],
-  "properties": { "mpn": "XIAO ESP32C6", "type": "module" },
-  "outline": { "widthMm": 21, "heightMm": 17.8, "shape": "rounded", "cornerRadiusMm": 1 },
+  "properties": {
+    "mpn": "XIAO ESP32C6",
+    "type": "module",
+    "chip": "ESP32-C6"
+  },
+  "outline": {
+    "widthMm": 17.8,
+    "heightMm": 21,
+    "shape": "rounded",
+    "cornerRadiusMm": 1.5
+  },
   "artwork": {
+    "style": "vector",
     "boardColor": "#1A1A1A",
     "components": [
       {
         "kind": "rect",
-        "xMm": -1.2,
-        "yMm": 4.4,
-        "wMm": 7.4,
-        "hMm": 9,
-        "color": "#B0B0B0",
-        "rxMm": 1,
-        "note": "USB-C"
+        "xMm": 4.4,
+        "yMm": -1.5,
+        "wMm": 9,
+        "hMm": 7.4,
+        "color": "#B8B8B8",
+        "rxMm": 0.8,
+        "note": "USB-C receptacle, overhangs the top edge by 1.5 mm (KiCad footprint silk)"
+      },
+      {
+        "kind": "rect",
+        "xMm": 3,
+        "yMm": 6.8,
+        "wMm": 11.8,
+        "hMm": 10.4,
+        "color": "#6E6E6E",
+        "rxMm": 0.4,
+        "note": "ESP32-C6 RF shield can"
       }
     ]
   },
   "headers": [
     {
-      "key": "top",
+      "key": "left",
       "kind": "castellated",
       "cols": 7,
-      "xMm": 2.88,
-      "yMm": 1.28,
+      "orientation": "vertical",
+      "xMm": 1.28,
+      "yMm": 2.88,
       "pins": [
-        { "key": "5v", "name": "5V", "role": "power" },
-        { "key": "gnd", "name": "GND", "role": "gnd" },
-        { "key": "3v3", "name": "3V3", "role": "power" },
-        { "key": "d10", "name": "D10", "role": "spi", "description": "D10 / MOSI" },
-        { "key": "d9", "name": "D9", "role": "spi", "description": "D9 / MISO" },
-        { "key": "d8", "name": "D8", "role": "spi", "description": "D8 / SCK" },
-        { "key": "d7", "name": "D7", "role": "uart", "description": "D7 / RX" }
+        {
+          "key": "d0",
+          "name": "D0",
+          "role": "analog",
+          "description": "D0 / A0: GPIO0 (LP_GPIO0), ADC"
+        },
+        {
+          "key": "d1",
+          "name": "D1",
+          "role": "analog",
+          "description": "D1 / A1: GPIO1 (LP_GPIO1), ADC"
+        },
+        {
+          "key": "d2",
+          "name": "D2",
+          "role": "analog",
+          "description": "D2 / A2: GPIO2 (LP_GPIO2), ADC"
+        },
+        {
+          "key": "d3",
+          "name": "D3",
+          "role": "io",
+          "description": "D3: GPIO21 (SDIO_DATA1)"
+        },
+        {
+          "key": "d4",
+          "name": "D4",
+          "role": "i2c",
+          "description": "D4 / SDA: GPIO22, I2C data (SDIO_DATA2)"
+        },
+        {
+          "key": "d5",
+          "name": "D5",
+          "role": "i2c",
+          "description": "D5 / SCL: GPIO23, I2C clock (SDIO_DATA3)"
+        },
+        {
+          "key": "d6",
+          "name": "D6",
+          "role": "uart",
+          "description": "D6 / TX: GPIO16, UART transmit"
+        }
       ]
     },
     {
-      "key": "bottom",
+      "key": "right",
       "kind": "castellated",
       "cols": 7,
-      "xMm": 2.88,
-      "yMm": 16.52,
+      "orientation": "vertical",
+      "xMm": 16.52,
+      "yMm": 2.88,
       "pins": [
-        { "key": "d0", "name": "D0" },
-        { "key": "d1", "name": "D1" },
-        { "key": "d2", "name": "D2" },
-        { "key": "d3", "name": "D3" },
-        { "key": "d4", "name": "D4", "role": "i2c", "description": "D4 / SDA" },
-        { "key": "d5", "name": "D5", "role": "i2c", "description": "D5 / SCL" },
-        { "key": "d6", "name": "D6", "role": "uart", "description": "D6 / TX" }
+        {
+          "key": "5v",
+          "name": "5V",
+          "role": "power",
+          "description": "5V (VBUS): USB-C 5 V in/out. No voltage here when running from the battery"
+        },
+        {
+          "key": "gnd",
+          "name": "GND",
+          "role": "gnd",
+          "description": "Ground"
+        },
+        {
+          "key": "3v3",
+          "name": "3V3",
+          "role": "power",
+          "description": "3V3 (3V3_OUT): 3.3 V regulator output"
+        },
+        {
+          "key": "d10",
+          "name": "D10",
+          "role": "spi",
+          "description": "D10 / MOSI: GPIO18, SPI data out"
+        },
+        {
+          "key": "d9",
+          "name": "D9",
+          "role": "spi",
+          "description": "D9 / MISO: GPIO20, SPI data in"
+        },
+        {
+          "key": "d8",
+          "name": "D8",
+          "role": "spi",
+          "description": "D8 / SCK: GPIO19, SPI clock"
+        },
+        {
+          "key": "d7",
+          "name": "D7",
+          "role": "uart",
+          "description": "D7 / RX: GPIO17, UART receive"
+        }
+      ]
+    },
+    {
+      "key": "bat",
+      "kind": "castellated",
+      "cols": 2,
+      "orientation": "horizontal",
+      "xMm": 7.11,
+      "yMm": 16.03,
+      "pad": {
+        "shape": "rect",
+        "wMm": 1.1,
+        "hMm": 2.5,
+        "smd": true
+      },
+      "pins": [
+        {
+          "key": "bat+",
+          "name": "BAT+",
+          "label": "B+",
+          "role": "power",
+          "description": "Li-ion battery plus (VBAT), pad on the BACK; charged by the on-board SGM40567 charger"
+        },
+        {
+          "key": "bat-",
+          "name": "BAT-",
+          "label": "B-",
+          "role": "gnd",
+          "description": "Battery minus, pad on the BACK. Same net as GND"
+        }
       ]
     }
   ],
-  "pins": [
+  "buses": [
     {
-      "key": "bat-",
-      "name": "BAT-",
-      "type": "pad",
-      "role": "gnd",
-      "xMm": 15.6,
-      "yMm": 5,
-      "pad": { "shape": "rect", "wMm": 1.6, "hMm": 1.2, "smd": true },
-      "description": "Battery minus, back side (position estimated)"
+      "id": "GND",
+      "pins": ["gnd", "bat-"]
     }
-  ],
-  "buses": [{ "id": "GND", "pins": ["gnd", "bat-"] }]
+  ]
 }
 ```
 
@@ -176,23 +295,23 @@ fritzkit [--workspace <dir>] [--json] <command>
 `<part>` is a slug in the workspace (default `~/fritzkit/parts`, or `FRITZKIT_WORKSPACE`) or
 a path to a part folder (`validate` and `render` also accept a `.fzpz`). `--json` prints machine-readable output.
 
-| command                                              | what it does                                                                                                                              |
-| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `init`                                               | create the workspace folder                                                                                                               |
-| `new <slug> [--title <t>]`                           | create `<workspace>/<slug>/part.json` (a placeholder spec) and `assets/`                                                                  |
-| `list`                                               | list the parts in the workspace                                                                                                           |
-| `validate <part> [--checker]`                        | schema and structural checks; `--checker` also runs Fritzing's part checker via uv                                                        |
-| `render <part> [--view <v>] [--out <dir>] [--png]`   | write `<view>.svg` for one view or all four (breadboard, schematic, pcb, icon) into `<part>/build/`; `--png` adds `<view>.png` at 300 dpi |
-| `export <part> [--out <file>] [--install] [--force]` | build the `.fzpz` (next to part.json by default); refuses on validator errors unless `--force`; `--install` also installs it              |
-| `install <part> [--out <file>] [--force]`            | same as `export --install`; refuses while Fritzing is running                                                                             |
-| `prune <family-or-slug> [--keep <moduleId>] [--yes]` | list older installed versions of a family (dry run); `--yes` deletes them, keeping the newest                                             |
-| `doctor`                                             | check Node, uv, the Fritzing install and its parts folder, sharp                                                                          |
-| `schema [--out <file>]`                              | print or write the part.json JSON Schema                                                                                                  |
-| `import-kicad <file> --slug <slug>`                  | create a part from a `.kicad_mod` footprint with exact pad geometry                                                                       |
-| `mcp`                                                | run the MCP server on stdio                                                                                                               |
-| `ui [part] [--port <n>]`                             | local web editor for part.json with live previews (coming in a later release)                                                             |
+| command                                              | what it does                                                                                                                                                                             |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`                                               | create the workspace folder                                                                                                                                                              |
+| `new <slug> [--title <t>]`                           | create `<workspace>/<slug>/part.json` (a placeholder spec) and `assets/`                                                                                                                 |
+| `list`                                               | list the parts in the workspace                                                                                                                                                          |
+| `validate <part> [--checker]`                        | schema and structural checks; `--checker` also runs Fritzing's part checker via uv and prints a `fzp checker: ran (...)` or `skipped - ...` line; a `.fzpz` path checks the package only |
+| `render <part> [--view <v>] [--out <dir>] [--png]`   | write `<view>.svg` for one view or all four (breadboard, schematic, pcb, icon) into `<part>/build/`; `--png` ALSO writes `<view>.png` at 300 dpi                                         |
+| `export <part> [--out <file>] [--install] [--force]` | build the `.fzpz` (next to part.json by default); refuses on validator errors unless `--force`; `--install` also installs it                                                             |
+| `install <part> [--out <file>] [--force]`            | same as `export --install`; refuses while Fritzing is running                                                                                                                            |
+| `prune <family-or-slug> [--keep <moduleId>] [--yes]` | list older installed versions of a family (dry run); `--yes` deletes them, keeping the newest                                                                                            |
+| `doctor`                                             | check Node, uv, the Fritzing install and its parts folder, sharp                                                                                                                         |
+| `schema [--out <file>]`                              | print or write the part.json JSON Schema                                                                                                                                                 |
+| `import-kicad <file> --slug <slug>`                  | create a part from a `.kicad_mod` footprint with exact pad geometry                                                                                                                      |
+| `mcp`                                                | run the MCP server on stdio                                                                                                                                                              |
+| `ui [part] [--port <n>]`                             | local web editor for part.json with live previews                                                                                                                                        |
 
-Exit codes: 0 ok, 1 error, 2 not implemented yet (`ui`), 3 Fritzing is running (install/prune).
+Exit codes: 0 ok, 1 error, 2 the `ui` app is not built (run `npm run ui:build`), 3 Fritzing is running (install/prune).
 
 ## MCP tools
 
@@ -215,6 +334,16 @@ Run with `npx -y fritzkit mcp` (stdio). Same core as the CLI.
 | `fritzkit_import_kicad`   | create a part from a `.kicad_mod`                              |
 | `fritzkit_schema`         | the part.json JSON Schema                                      |
 | `fritzkit_doctor`         | environment check                                              |
+
+## Acceptance
+
+The part pipeline was verified end to end on a real product: a fresh agent built the
+[HW-391 2S 20A balance board](examples/hw391-2s-20a-bms/README.md) from its Amazon listing
+using only the skill and the CLI, every pad landed within 0.75 mm of a hidden golden table, and
+the local acceptance run (`npm run e2e`) rendered it in Fritzing and wired it on a
+breadboard. Screenshots of the GUI run (the part in My Parts, wired, saved) are in
+[docs/acceptance/](docs/acceptance/); the example's own notes and measured-vs-golden table are in
+[examples/hw391-2s-20a-bms/README.md](examples/hw391-2s-20a-bms/README.md).
 
 ## FAQ
 

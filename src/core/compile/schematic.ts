@@ -127,7 +127,7 @@ export function layoutSchematic(part: ResolvedPart): SchematicLayout {
 
   const fs = S.fontSizeMil;
   const maxW = (cs: ResolvedConnector[]) =>
-    cs.reduce((m, c) => Math.max(m, estimateTextWidthMil(c.label, fs)), 0);
+    cs.reduce((m, c) => Math.max(m, estimateTextWidthMil(c.label || c.name, fs)), 0);
   const maxL = maxW(bySide.left);
   const maxR = maxW(bySide.right);
 
@@ -199,7 +199,7 @@ function pinLabel(p: SchematicPin): string {
   const fs = S.fontSizeMil;
   const shift = Math.round(fs * BASELINE_SHIFT * 10) / 10;
   const common = { "font-family": FONT_SANS, "font-size": fs, fill: S.body };
-  const label = p.connector.label;
+  const label = p.connector.label || p.connector.name;
   switch (p.side) {
     case "left":
       return text(label, {

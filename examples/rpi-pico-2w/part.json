@@ -1,0 +1,475 @@
+{
+  "$schema": "https://raw.githubusercontent.com/pmaxhogan/fritzkit/main/src/core/schema/part.schema.json",
+  "slug": "rpi-pico-2w",
+  "title": "Raspberry Pi Pico 2 W",
+  "version": 1,
+  "label": "U",
+  "tags": ["raspberry pi", "pico", "pico 2 w", "rp2350", "cyw43439", "wifi", "dip"],
+  "description": "Raspberry Pi Pico 2 W (RP2350 + CYW43439), 21 x 51 mm. Top view, micro-USB at the TOP short edge, the antenna at the bottom edge. Two 1x20 0.1 in rows (through-hole + castellated) 17.78 mm (0.7 in) apart: pins 1-20 (GP0..GP15) down the left edge, pins 40..21 (VBUS..GP16) down the right edge, so the part straddles a breadboard centre channel. The 3-pin SWD debug header (SWCLK, GND, SWDIO) sits mid-board above the wireless module. Connector names are the pinout names (GP0, GND, VSYS ...); the physical pin number is in each description. The seven GND pins and the debug GND are one bus; AGND is a separate analogue ground and is NOT on the bus.",
+  "sources": [
+    "https://datasheets.raspberrypi.com/picow/pico-2-w-datasheet.pdf",
+    "https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html"
+  ],
+  "properties": {
+    "type": "module",
+    "chip": "RP2350A",
+    "wireless": "CYW43439"
+  },
+  "outline": {
+    "widthMm": 21,
+    "heightMm": 51,
+    "shape": "rect",
+    "holes": [
+      {
+        "xMm": 4.8,
+        "yMm": 2,
+        "dMm": 2.1
+      },
+      {
+        "xMm": 16.2,
+        "yMm": 2,
+        "dMm": 2.1
+      },
+      {
+        "xMm": 4.8,
+        "yMm": 49,
+        "dMm": 2.1
+      },
+      {
+        "xMm": 16.2,
+        "yMm": 49,
+        "dMm": 2.1
+      }
+    ]
+  },
+  "artwork": {
+    "style": "vector",
+    "boardColor": "#1B7F3B",
+    "components": [
+      {
+        "kind": "rect",
+        "xMm": 6.5,
+        "yMm": -1.3,
+        "wMm": 8,
+        "hMm": 5.8,
+        "color": "#B8B8B8",
+        "rxMm": 0.5,
+        "note": "micro-USB B receptacle, 8 mm wide, overhangs the top edge by 1.3 mm (datasheet Figure 3)"
+      },
+      {
+        "kind": "rect",
+        "xMm": 5.1,
+        "yMm": 10,
+        "wMm": 3.8,
+        "hMm": 3.8,
+        "color": "#E8E8E8",
+        "rxMm": 0.3,
+        "note": "BOOTSEL button body"
+      },
+      {
+        "kind": "circle",
+        "xMm": 7,
+        "yMm": 11.9,
+        "dMm": 2.4,
+        "color": "#F0F0F0",
+        "note": "BOOTSEL plunger"
+      },
+      {
+        "kind": "rect",
+        "xMm": 10.7,
+        "yMm": 9.4,
+        "wMm": 4.2,
+        "hMm": 3,
+        "color": "#202020",
+        "rxMm": 0.2,
+        "note": "QSPI flash"
+      },
+      {
+        "kind": "rect",
+        "xMm": 6.9,
+        "yMm": 20.4,
+        "wMm": 7,
+        "hMm": 7,
+        "color": "#202020",
+        "rxMm": 0.3,
+        "note": "RP2350A, 7 x 7 mm QFN-60"
+      },
+      {
+        "kind": "text",
+        "text": "RP2350",
+        "xMm": 10.4,
+        "yMm": 23.9,
+        "sizeMm": 1.2,
+        "color": "#C0C0C0"
+      },
+      {
+        "kind": "rect",
+        "xMm": 4.5,
+        "yMm": 32.6,
+        "wMm": 11.9,
+        "hMm": 10.1,
+        "color": "#707070",
+        "rxMm": 0.3,
+        "note": "CYW43439 wireless module shield"
+      },
+      {
+        "kind": "text",
+        "text": "Pico 2 W",
+        "xMm": 10.45,
+        "yMm": 46.4,
+        "sizeMm": 1.6,
+        "color": "#FFFFFF"
+      },
+      {
+        "kind": "text",
+        "text": "SWDIO",
+        "xMm": 16.164,
+        "yMm": 33.5,
+        "sizeMm": 0.75,
+        "color": "#E6E6E6"
+      }
+    ]
+  },
+  "headers": [
+    {
+      "key": "left",
+      "kind": "male",
+      "cols": 20,
+      "orientation": "vertical",
+      "xMm": 1.61,
+      "yMm": 1.37,
+      "pins": [
+        {
+          "key": "gp0",
+          "name": "GP0",
+          "role": "io",
+          "description": "GP0: UART0 TX / I2C0 SDA / SPI0 RX (pin 1)"
+        },
+        {
+          "key": "gp1",
+          "name": "GP1",
+          "role": "io",
+          "description": "GP1: UART0 RX / I2C0 SCL / SPI0 CSn (pin 2)"
+        },
+        {
+          "key": "gnd3",
+          "name": "GND",
+          "role": "gnd",
+          "description": "Ground (pin 3) (pin 3)"
+        },
+        {
+          "key": "gp2",
+          "name": "GP2",
+          "role": "io",
+          "description": "GP2: I2C1 SDA / SPI0 SCK (pin 4)"
+        },
+        {
+          "key": "gp3",
+          "name": "GP3",
+          "role": "io",
+          "description": "GP3: I2C1 SCL / SPI0 TX (pin 5)"
+        },
+        {
+          "key": "gp4",
+          "name": "GP4",
+          "role": "io",
+          "description": "GP4: UART1 TX / I2C0 SDA / SPI0 RX (pin 6)"
+        },
+        {
+          "key": "gp5",
+          "name": "GP5",
+          "role": "io",
+          "description": "GP5: UART1 RX / I2C0 SCL / SPI0 CSn (pin 7)"
+        },
+        {
+          "key": "gnd8",
+          "name": "GND",
+          "role": "gnd",
+          "description": "Ground (pin 8) (pin 8)"
+        },
+        {
+          "key": "gp6",
+          "name": "GP6",
+          "role": "io",
+          "description": "GP6: I2C1 SDA / SPI0 SCK (pin 9)"
+        },
+        {
+          "key": "gp7",
+          "name": "GP7",
+          "role": "io",
+          "description": "GP7: I2C1 SCL / SPI0 TX (pin 10)"
+        },
+        {
+          "key": "gp8",
+          "name": "GP8",
+          "role": "io",
+          "description": "GP8: UART1 TX / I2C0 SDA / SPI1 RX (pin 11)"
+        },
+        {
+          "key": "gp9",
+          "name": "GP9",
+          "role": "io",
+          "description": "GP9: UART1 RX / I2C0 SCL / SPI1 CSn (pin 12)"
+        },
+        {
+          "key": "gnd13",
+          "name": "GND",
+          "role": "gnd",
+          "description": "Ground (pin 13) (pin 13)"
+        },
+        {
+          "key": "gp10",
+          "name": "GP10",
+          "role": "io",
+          "description": "GP10: I2C1 SDA / SPI1 SCK (pin 14)"
+        },
+        {
+          "key": "gp11",
+          "name": "GP11",
+          "role": "io",
+          "description": "GP11: I2C1 SCL / SPI1 TX (pin 15)"
+        },
+        {
+          "key": "gp12",
+          "name": "GP12",
+          "role": "io",
+          "description": "GP12: UART0 TX / I2C0 SDA / SPI1 RX (pin 16)"
+        },
+        {
+          "key": "gp13",
+          "name": "GP13",
+          "role": "io",
+          "description": "GP13: UART0 RX / I2C0 SCL / SPI1 CSn (pin 17)"
+        },
+        {
+          "key": "gnd18",
+          "name": "GND",
+          "role": "gnd",
+          "description": "Ground (pin 18) (pin 18)"
+        },
+        {
+          "key": "gp14",
+          "name": "GP14",
+          "role": "io",
+          "description": "GP14: I2C1 SDA / SPI1 SCK (pin 19)"
+        },
+        {
+          "key": "gp15",
+          "name": "GP15",
+          "role": "io",
+          "description": "GP15: I2C1 SCL / SPI1 TX (pin 20)"
+        }
+      ]
+    },
+    {
+      "key": "right",
+      "kind": "male",
+      "cols": 20,
+      "orientation": "vertical",
+      "xMm": 19.39,
+      "yMm": 1.37,
+      "pins": [
+        {
+          "key": "vbus",
+          "name": "VBUS",
+          "role": "power",
+          "description": "VBUS: micro-USB input voltage, nominally 5 V (pin 40)"
+        },
+        {
+          "key": "vsys",
+          "name": "VSYS",
+          "role": "power",
+          "description": "VSYS: main system input, 1.8 V to 5.5 V (pin 39)"
+        },
+        {
+          "key": "gnd38",
+          "name": "GND",
+          "role": "gnd",
+          "description": "Ground (pin 38)"
+        },
+        {
+          "key": "3v3_en",
+          "name": "3V3_EN",
+          "role": "enable",
+          "description": "3V3_EN: on-board SMPS enable, pulled up to VSYS by 100k; short low to turn off 3.3 V (pin 37)"
+        },
+        {
+          "key": "3v3",
+          "name": "3V3(OUT)",
+          "role": "power",
+          "description": "3V3(OUT): 3.3 V SMPS output, keep the load under 300 mA (pin 36)"
+        },
+        {
+          "key": "adc_vref",
+          "name": "ADC_VREF",
+          "role": "analog",
+          "description": "ADC_VREF: ADC supply and reference, filtered 3.3 V (pin 35)"
+        },
+        {
+          "key": "gp28",
+          "name": "GP28",
+          "role": "analog",
+          "description": "GP28: ADC2 (pin 34)"
+        },
+        {
+          "key": "agnd",
+          "name": "AGND",
+          "role": "gnd",
+          "description": "AGND: analogue ground for GPIO26-29, a separate ground plane terminating at this pin (pin 33)"
+        },
+        {
+          "key": "gp27",
+          "name": "GP27",
+          "role": "analog",
+          "description": "GP27: ADC1 / I2C1 SCL (pin 32)"
+        },
+        {
+          "key": "gp26",
+          "name": "GP26",
+          "role": "analog",
+          "description": "GP26: ADC0 / I2C1 SDA (pin 31)"
+        },
+        {
+          "key": "run",
+          "name": "RUN",
+          "role": "reset",
+          "description": "RUN: RP2350 enable, ~50k pull-up to 3.3 V; short low to reset (pin 30)"
+        },
+        {
+          "key": "gp22",
+          "name": "GP22",
+          "role": "io",
+          "description": "GP22 (pin 29)"
+        },
+        {
+          "key": "gnd28",
+          "name": "GND",
+          "role": "gnd",
+          "description": "Ground (pin 28)"
+        },
+        {
+          "key": "gp21",
+          "name": "GP21",
+          "role": "io",
+          "description": "GP21: I2C0 SCL (pin 27)"
+        },
+        {
+          "key": "gp20",
+          "name": "GP20",
+          "role": "io",
+          "description": "GP20: I2C0 SDA (pin 26)"
+        },
+        {
+          "key": "gp19",
+          "name": "GP19",
+          "role": "io",
+          "description": "GP19: SPI0 TX / I2C1 SCL (pin 25)"
+        },
+        {
+          "key": "gp18",
+          "name": "GP18",
+          "role": "io",
+          "description": "GP18: SPI0 SCK / I2C1 SDA (pin 24)"
+        },
+        {
+          "key": "gnd23",
+          "name": "GND",
+          "role": "gnd",
+          "description": "Ground (pin 23)"
+        },
+        {
+          "key": "gp17",
+          "name": "GP17",
+          "role": "io",
+          "description": "GP17: SPI0 CSn / I2C0 SCL / UART0 RX (pin 22)"
+        },
+        {
+          "key": "gp16",
+          "name": "GP16",
+          "role": "io",
+          "description": "GP16: SPI0 RX / I2C0 SDA / UART0 TX (pin 21)"
+        }
+      ]
+    },
+    {
+      "key": "debug",
+      "kind": "female",
+      "cols": 3,
+      "orientation": "horizontal",
+      "xMm": 11.084,
+      "yMm": 31.2,
+      "pins": [
+        {
+          "key": "swclk",
+          "name": "SWCLK",
+          "role": "clock",
+          "description": "SWD debug clock (debug header, left)"
+        },
+        {
+          "key": "dbg_gnd",
+          "name": "GND",
+          "role": "gnd",
+          "description": "Ground (debug header, middle)"
+        },
+        {
+          "key": "swdio",
+          "name": "SWDIO",
+          "role": "io",
+          "description": "SWD debug data (debug header, right). Its breadboard label is printed below the pad because a label above it would collide with GP22",
+          "label": ""
+        }
+      ]
+    }
+  ],
+  "buses": [
+    {
+      "id": "GND",
+      "pins": ["gnd3", "gnd8", "gnd13", "gnd18", "gnd23", "gnd28", "gnd38", "dbg_gnd"]
+    }
+  ],
+  "pinIds": {
+    "gp0": 0,
+    "gp1": 1,
+    "gnd3": 2,
+    "gp2": 3,
+    "gp3": 4,
+    "gp4": 5,
+    "gp5": 6,
+    "gnd8": 7,
+    "gp6": 8,
+    "gp7": 9,
+    "gp8": 10,
+    "gp9": 11,
+    "gnd13": 12,
+    "gp10": 13,
+    "gp11": 14,
+    "gp12": 15,
+    "gp13": 16,
+    "gnd18": 17,
+    "gp14": 18,
+    "gp15": 19,
+    "vbus": 20,
+    "vsys": 21,
+    "gnd38": 22,
+    "3v3_en": 23,
+    "3v3": 24,
+    "adc_vref": 25,
+    "gp28": 26,
+    "agnd": 27,
+    "gp27": 28,
+    "gp26": 29,
+    "run": 30,
+    "gp22": 31,
+    "gnd28": 32,
+    "gp21": 33,
+    "gp20": 34,
+    "gp19": 35,
+    "gp18": 36,
+    "gnd23": 37,
+    "gp17": 38,
+    "gp16": 39,
+    "swclk": 40,
+    "dbg_gnd": 41,
+    "swdio": 42
+  }
+}
