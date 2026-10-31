@@ -7,7 +7,7 @@
  * reused, so re-exporting a part keeps every surviving connector id stable and the
  * Inspector swap keeps wires attached.
  */
-import { PITCH_MM } from "./units.js";
+import { milToMm, PITCH_MM, ringGeometry } from "./units.js";
 import type {
   ConnectorType,
   Header,
@@ -226,8 +226,28 @@ export function contentBounds(
     maxY = Math.max(maxY, y + hh);
   };
   for (const c of connectors) {
-    grow(c.xMm, c.yMm, c.pad.wMm / 2, c.pad.hMm / 2);
-    if (c.lead) grow(c.lead.fromXMm, c.lead.fromYMm, c.lead.gaugeMm / 2, c.lead.gaugeMm / 2);
+    // A male/female header cell is drawn a full pitch wide, wider than its copper pad.
+    const cell = c.header && c.header.kind !== "castellated" ? c.header.pitchMm / 2 : 0;
+    // The PCB ring may be larger than the spec pad once the minimum hole/ring apply.
+    const ring = c.tht ? milToMm(ringGeometry(c.pad.wMm, c.pad.hMm, c.pad.holeMm).padR) : 0;
+    const hw = Math.max(c.pad.wMm / 2, cell, ring);
+    const hh = Math.max(c.pad.hMm / 2, cell, ring);
+    if (c.lead) {
+      // The lead's copper sits at the attachment point. The leg line runs PAST the
+      // canvas on purpose: core legged parts (LEDs, battery packs) keep the viewBox to
+      // the body and Fritzing draws the bendable leg itself from the legId line.
+      grow(c.lead.fromXMm, c.lead.fromYMm, hw, hh);
+    } else {
+      grow(c.xMm, c.yMm, hw, hh);
+    }
+  }
+  if (spec.outline.shape === "custom") {
+    // A custom outline path cannot be inset, so leave room for half the silkscreen stroke.
+    const pad = milToMm(4);
+    minX -= pad;
+    minY -= pad;
+    maxX += pad;
+    maxY += pad;
   }
   return { minX, minY, maxX, maxY };
 }
@@ -246,8 +266,8 @@ function roundUpMil(mm: number): number {
  */
 export function computeFrame(spec: PartSpec, connectors: ResolvedConnector[]): Frame {
   const b = contentBounds(spec, connectors);
-  let offsetXMm = -b.minX;
-  let offsetYMm = -b.minY;
+  let offsetXMm = 0 - b.minX;
+  let offsetYMm = 0 - b.minY;
   const first = connectors.find((c) => c.source === "header");
   if (first) {
     const snap = (v: number) => {
@@ -286,7 +306,19 @@ export function resolvePart(spec: PartSpec): ResolvedPart {
   }
 
   for (const h of spec.headers) {
-    const pad = h.pad ?? (h.kind === "castellated" ? DEFAULT_CASTELLATED_PAD : DEFAULT_HEADER_PAD);
+    // Castellations are elongated ACROSS the board edge: for a vertical column the
+    // default pad is rotated so its long side runs along x.
+    const defaultPad =
+      h.kind === "castellated"
+        ? h.orientation === "vertical"
+          ? {
+              ...DEFAULT_CASTELLATED_PAD,
+              wMm: DEFAULT_CASTELLATED_PAD.hMm,
+              hMm: DEFAULT_CASTELLATED_PAD.wMm,
+            }
+          : DEFAULT_CASTELLATED_PAD
+        : DEFAULT_HEADER_PAD;
+    const pad = h.pad ?? defaultPad;
     const type: ConnectorType = h.kind === "male" ? "male" : h.kind === "female" ? "female" : "pad";
     h.pins.forEach((p, i) => {
       if (!p) return;
@@ -315,8 +347,10 @@ export function resolvePart(spec: PartSpec): ResolvedPart {
   for (const l of spec.leads) {
     const end = leadEnd(l);
     const id = pinIds[l.key]!;
+    // Fritzing reserves connector type "wire" for its own wire items (no core part uses
+    // it); a bare lead end behaves like a male pin: it plugs into a breadboard hole.
     const c = makeConnector(id, l, {
-      type: "wire",
+      type: "male",
       source: "lead",
       xMm: end.xMm,
       yMm: end.yMm,

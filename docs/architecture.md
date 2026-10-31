@@ -13,7 +13,7 @@ part.json --parsePartSpec--> PartSpec (zod, defaults applied)
         --render x4-------> breadboard.svg, schematic.svg, pcb.svg, icon.svg
         --buildFzp--------> part.fzp
         --zip-------------> <slug>.fzpz   (flat: part.<id>.fzp, svg.<view>.<id>_<view>.svg)
-        --install---------> %APPDATA%/Fritzing/Fritzing/local_parts/user/<moduleId>/ + my_parts.fzb
+        --install---------> %APPDATA%/Fritzing/Fritzing/local_parts/user/<moduleId>/   (my_parts.fzb only with updateBin)
 ```
 
 Everything under `src/core/` is pure (no fs, no network) except `export/` (zip +
@@ -39,7 +39,11 @@ install/prune) and `image/` (sharp). `cli/`, `mcp/` and `ui/` are thin shells ov
 - `moduleId = fritzkit-<slug>-<hash8>` changes with every content change (Fritzing
   refuses duplicate ids). `family = slug` is stable; `variant = v<version> <hash8>`.
 - Connector ids AND names are kept stable across versions by construction (the name is
-  the spec's `name`; renaming a pin is the user's deliberate choice).
+  the spec's `name`). VERIFIED on 1.0.7b (2026-10-31 swap spike): the Inspector swap
+  re-attaches wires by connector NAME. A variant with identical ids and positions but
+  renamed connectors lost every wire; a variant with reversed ids but the same names
+  kept them. So renaming a pin breaks wires in existing sketches after a swap; a new
+  key with the old name does not.
 
 ## SVG rules (checked by the validator)
 
@@ -52,18 +56,20 @@ install/prune) and `image/` (sharp). `cli/`, `mcp/` and `ui/` are thin shells ov
   `connectorNterminal` must have non-zero size (1 mil rect at the pin centre). A lead
   uses `connectorNleg` (a `<line>`) INSTEAD of a terminal.
 - PCB THT pad: `<circle r=".." stroke-width=".." stroke="#F7BD13" fill="none" id="connectorNpin"/>`
-  in BOTH copper0 and copper1 (same id is fine: they are separate groups and Fritzing
-  looks the id up per layer). SMD pads: copper1 only, `<rect>`.
+  emitted ONCE inside `<g id="copper0">`, which is nested in `<g id="copper1">`; the fzp
+  lists both a copper0 and a copper1 `<p>` for it and Fritzing finds the same element
+  through either layer. Never duplicate the element: duplicate ids are a checker error.
+  SMD pads: `<rect>` directly in copper1 (outside copper0).
 - Schematic: pins on the 0.1 in grid, 0.1 in long, body `#000000`, pins `#555555`.
 
 ## Views
 
-| view | layer ids | notes |
-|---|---|---|
-| breadboard | `breadboard` | house-style vector (default) or photo (embedded PNG data URI, `xmlns:xlink`, base64 wrapped at 60 chars) with vector pads on top |
-| schematic | `schematic` | auto rectangle; pins grouped by role: power top/left, gnd bottom, io right |
-| pcb | `copper0` (THT only), `copper1`, `silkscreen` | real footprint from the pad table |
-| icon | `icon` | cropped breadboard artwork, square-ish |
+| view       | layer ids                                     | notes                                                                                                                            |
+| ---------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| breadboard | `breadboard`                                  | house-style vector (default) or photo (embedded PNG data URI, `xmlns:xlink`, base64 wrapped at 60 chars) with vector pads on top |
+| schematic  | `schematic`                                   | auto rectangle; pins grouped by role: power top/left, gnd bottom, io right                                                       |
+| pcb        | `copper0` (THT only), `copper1`, `silkscreen` | real footprint from the pad table                                                                                                |
+| icon       | `icon`                                        | cropped breadboard artwork, square-ish                                                                                           |
 
 ## Files inside the .fzpz
 

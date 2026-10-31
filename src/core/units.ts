@@ -32,3 +32,22 @@ export function fmt(n: number): string {
 export function mil(mm: number): string {
   return fmt(mmToMil(mm));
 }
+
+/** Minimum PCB drill and annular ring Fritzing's checker and fabs expect (mils). */
+export const MIN_HOLE_MIL = 40;
+export const MIN_RING_MIL = 20;
+
+/**
+ * Through-hole pad ring geometry in mils: Fritzing draws a THT pad as a circle whose
+ * stroke is the annular ring. The hole never shrinks below MIN_HOLE_MIL and the ring
+ * never below MIN_RING_MIL; the pad grows instead.
+ */
+export function ringGeometry(
+  wMm: number,
+  hMm: number,
+  holeMm: number | undefined,
+): { holeR: number; padR: number; r: number; strokeWidth: number } {
+  const holeR = Math.max(mmToMil(holeMm ?? 0) / 2, MIN_HOLE_MIL / 2);
+  const padR = Math.max(mmToMil(Math.min(wMm, hMm)) / 2, holeR + MIN_RING_MIL);
+  return { holeR, padR, r: (holeR + padR) / 2, strokeWidth: padR - holeR };
+}

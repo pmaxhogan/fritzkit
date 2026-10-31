@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0.32in" height="0.32in" viewBox="0 0 320 320">
+<g id="icon">
+  <g transform="translate(41.875 16.045) scale(0.315)">
+  <rect x="54" y="90.614" width="692" height="818.772" rx="35.37" ry="35.37" fill="#101010" stroke="#0B0B0B" stroke-width="8"/>
+  <rect x="52.756" y="168.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="81.102" y="187.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="52.756" y="268.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="81.102" y="287.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="52.756" y="368.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="81.102" y="387.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="52.756" y="468.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="81.102" y="487.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="52.756" y="568.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="81.102" y="587.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="52.756" y="668.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="81.102" y="687.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="52.756" y="768.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="81.102" y="787.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="652.756" y="168.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="681.102" y="187.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="652.756" y="268.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="681.102" y="287.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="652.756" y="368.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="681.102" y="387.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="652.756" y="468.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="681.102" y="487.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="652.756" y="568.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="681.102" y="587.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="652.756" y="668.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="681.102" y="687.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <rect x="652.756" y="768.504" width="94.488" height="62.992" fill="#9A916C" stroke="#8C8663" stroke-width="6"/>
+  <rect x="681.102" y="787.402" width="37.795" height="25.197" fill="#1F1F1F"/>
+  <text x="162.992" y="214" text-anchor="start" font-family="Noto Sans" font-size="40" fill="#E6E6E6">D0</text>
+  <text x="162.992" y="314" text-anchor="start" font-family="Noto Sans" font-size="40" fill="#E6E6E6">D1</text>
+  <text x="162.992" y="414" text-anchor="start" font-family="Noto Sans" font-size="40" fill="#E6E6E6">D2</text>
+  <text x="162.992" y="514" text-anchor="start" font-family="Noto Sans" font-size="40" fill="#E6E6E6">D3</text>
+  <text x="162.992" y="614" text-anchor="start" font-family="Noto Sans" font-size="40" fill="#E6E6E6">D4</text>
+  <text x="162.992" y="714" text-anchor="start" font-family="Noto Sans" font-size="40" fill="#E6E6E6">D5</text>
+  <text x="162.992" y="814" text-anchor="start" font-family="Noto Sans" font-size="40" fill="#E6E6E6">D6</text>
+  <text x="637.008" y="214" text-anchor="end" font-family="Noto Sans" font-size="40" fill="#F2A6A1">5V</text>
+  <text x="637.008" y="314" text-anchor="end" font-family="Noto Sans" font-size="40" fill="#E6E6E6">GND</text>
+  <text x="637.008" y="414" text-anchor="end" font-family="Noto Sans" font-size="40" fill="#F2A6A1">3V3</text>
+  <text x="637.008" y="514" text-anchor="end" font-family="Noto Sans" font-size="40" fill="#E6E6E6">D10</text>
+  <text x="637.008" y="614" text-anchor="end" font-family="Noto Sans" font-size="40" fill="#E6E6E6">D9</text>
+  <text x="637.008" y="714" text-anchor="end" font-family="Noto Sans" font-size="40" fill="#E6E6E6">D8</text>
+  <text x="637.008" y="814" text-anchor="end" font-family="Noto Sans" font-size="40" fill="#E6E6E6">D7</text>
+  <rect x="99.5" y="199.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="99.5" y="299.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="99.5" y="399.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="99.5" y="499.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="99.5" y="599.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="99.5" y="699.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="99.5" y="799.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="699.5" y="199.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="699.5" y="299.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="699.5" y="399.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="699.5" y="499.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="699.5" y="599.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="699.5" y="699.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+  <rect x="699.5" y="799.5" width="1" height="1" fill="#1F1F1F" stroke="none"/>
+</g>
+</g>
+</svg>

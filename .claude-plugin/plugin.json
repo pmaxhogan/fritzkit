@@ -1,0 +1,13 @@
+{
+  "name": "fritzkit",
+  "version": "0.1.0",
+  "description": "Build first-class Fritzing parts (.fzpz) from a product link, datasheet, photos or KiCad footprint: a skill for the research workflow plus the fritzkit MCP server that compiles, validates, renders, exports and installs the part.",
+  "author": { "name": "Max Hogan", "url": "https://github.com/pmaxhogan" },
+  "homepage": "https://github.com/pmaxhogan/fritzkit#readme",
+  "repository": "https://github.com/pmaxhogan/fritzkit",
+  "license": "MIT",
+  "keywords": ["fritzing", "fzpz", "electronics", "parts", "breadboard", "mcp"],
+  "mcpServers": {
+    "fritzkit": { "command": "npx", "args": ["-y", "fritzkit", "mcp"] }
+  }
+}

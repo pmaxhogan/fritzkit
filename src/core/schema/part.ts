@@ -276,7 +276,7 @@ export type PcbOptions = z.infer<typeof PcbOptions>;
 export const PartSpec = z
   .object({
     $schema: z.string().optional(),
-    slug: z.string().min(3).max(60).regex(SLUG_RE, "lowercase slug, e.g. hw391-2s-20a-bms"),
+    slug: z.string().min(3).max(60).regex(SLUG_RE, "lowercase slug, e.g. xiao-esp32-c6"),
     title: z.string().min(1).max(120),
     /** Bumped by hand when the part changes materially; shown as variant "v<n> <hash8>". */
     version: z.number().int().min(1).default(1),

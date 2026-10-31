@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1.19in" height="0.599in" viewBox="0 0 1190 599">
+<g id="silkscreen">
+<g transform="translate(4 4) scale(39.37)"><path d="M0 0 H30 V15 H0 Z" fill="none" stroke="#000000" stroke-width="0.203"/></g>
+</g>
+<g id="copper1">
+<g id="copper0">
+<rect x="161.48" y="236.283" width="78.74" height="125.984" fill="#F7BD13" stroke="none"/>
+<circle id="connector0pin" cx="200.85" cy="299.276" r="35.591" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector1pin" cx="476.441" cy="299.276" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+</g>
+<rect id="connector2pin" x="767.78" y="252.031" width="47.244" height="94.488" rx="23.622" fill="#F7BD13" stroke="none"/>
+</g>
+</svg>

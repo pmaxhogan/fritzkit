@@ -1,0 +1,12 @@
+{
+  "name": "fritzkit",
+  "owner": { "name": "pmaxhogan" },
+  "description": "Claude Code marketplace for the fritzkit plugin",
+  "plugins": [
+    {
+      "name": "fritzkit",
+      "source": "./",
+      "description": "Build Fritzing parts from a product link: workflow skill plus the fritzkit MCP server"
+    }
+  ]
+}

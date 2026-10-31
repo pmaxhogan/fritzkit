@@ -10,3 +10,18 @@ export * from "./resolve.js";
 export * from "./identity.js";
 export * from "./compile/types.js";
 export { compilePart, GENERATOR } from "./compile/index.js";
+export * from "./export/index.js";
+export * from "./fritzing.js";
+export * from "./validate/index.js";
+export {
+  parseKicadMod,
+  kicadToSpecFragment,
+  importKicadFile,
+  chooseOutline,
+  KicadParseError,
+  KicadImportError,
+  type KicadFootprint,
+  type KicadPad,
+  type KicadImportOptions,
+} from "./kicad/index.js";
+export { preparePhoto, detectBoardBbox, keyBackground } from "./image/index.js";

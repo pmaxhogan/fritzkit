@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0.794in" height="0.499in" viewBox="0 0 794 499">
+<g id="silkscreen">
+<rect x="10.299" y="29.984" width="779.402" height="464.441" rx="39.37" ry="39.37" fill="none" stroke="#000000" stroke-width="8"/>
+</g>
+<g id="copper1">
+<g id="copper0">
+<circle id="connector0pin" cx="100" cy="400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector1pin" cx="200" cy="400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector2pin" cx="300" cy="400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector3pin" cx="400" cy="400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector4pin" cx="500" cy="400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector5pin" cx="600" cy="400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<circle id="connector6pin" cx="700" cy="400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+</g>
+</g>
+</svg>

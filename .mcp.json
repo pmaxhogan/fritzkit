@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "fritzkit": {
+      "command": "node",
+      "args": ["--import", "tsx", "src/cli/main.ts", "mcp"]
+    }
+  }
+}

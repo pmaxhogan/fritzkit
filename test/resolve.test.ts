@@ -61,7 +61,8 @@ describe("resolvePart", () => {
     const first = r.connectors.find((c) => c.source === "header")!;
     expect(((first.xMm + r.frame.offsetXMm) / 2.54) % 1).toBeCloseTo(0, 9);
     expect(((first.yMm + r.frame.offsetYMm) / 2.54) % 1).toBeCloseTo(0, 9);
-    expect(r.frame.offsetXMm).toBeGreaterThanOrEqual(20); // lead sticks out 20 mm left
+    // Leads do not grow the canvas (the leg line runs past the viewBox, like core parts).
+    expect(r.frame.offsetXMm).toBeLessThan(5);
     expect(r.connectors.map((c) => c.id)).toEqual([0, 1, 2]);
     const lead = r.connectors.find((c) => c.source === "lead")!;
     expect(lead.legId).toBe("connector2leg");

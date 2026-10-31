@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1.8898in" height="0.7874in" viewBox="0 0 1889.76 787.4">
+  <g id="breadboard">
+    <rect x="0" y="0" width="1889.76" height="787.4" rx="59.06" ry="59.06" fill="#1B7F3B" stroke="none"/>
+    <image x="0" y="0" width="1889.76" height="787.4" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAADICAIAAAC/PqUtAAAD50lEQVR42u3Z
+QYqFMBBAwRzdm+vCE6gYnrE+tZjlkJZHQ4/93m8bALxq7A9/HhEgGmiZBkgH
+WqkB6oGWaYB0oGUaIB1opQaoB1qmAe4E+vxr5s+7A1wItEwDpAM9v9RmAHAt
+0BZqgHSgZRogHWilBqgHWqYB0oF2SASoB9pCDZAOtEwDpAOt1AD1QMs0QDrQ
+DokA9UBbqAHSgZZpgHSglRqgHmiZBkgH2iERoB5oCzVAOtAyDZAOtFID1AMt
+04BAf+MflWlAoGVaqQGBlmmAxQKt1IBAy7RMAwLtkAiwcKAt1IBAy7RMAwKt
+1IBAy7RMAwLtkAgg0BZqQKBlWqYBgVZqQKBlWqYBgXZIBBBoCzUg0DIt04BA
+KzUg0DIt04BAK7VMg0B7BQs1INAyLdOAQCs1INDINCDQSi3TINBYqAGBlmmZ
+BgRaqQGBRqYBgVZqmQaBxkINCLRMyzQg0ErttUGgkWlAoJVapkGgsVADAo1M
+g0Cj1EoNAo1MAwKt1DINAo2FGhBoZBoEGqVWahBoZBoQaKWWaRBoLNSAQCPT
+INAotVKDQCPTINDgkAgCjUwrNQg0Mg0CjVIrNQg0Mg0CDQ6JINDItFKDQCPT
+INAotVKDQCPTINDgkAgCjUwrNQINMg0CjVIrNQg0Mu21EWhwSASBRqaVGoEG
+mQaBBqUGgUamZRqBBodEEGhkWqkRaJBpEGhQahBoZFqmEWhwSASBRqaVGoEG
+mQaBBqVGoEGmZRqBBodEEGiwUCPQINMyjUCDUiPQINMyjUCDQyIINFioEWiQ
+aZlGoEGpEWiQaZlGoMEhEYEGLNQINMi0TCPQoNQINMi0TCPQoNQyLdCAhRqB
+BpmWaQQalBqBBmQagQallmmBBizUCDTItEwLNKDUCDQg0wg0KLVMCzRgoUag
+QaZlWqABpUagAZlGoEGpZVqgAQs1Ag3ItEADSq3UAg3INAINSi3TAg1YqBFo
+QKYFGlBqpRZoQKYFGlBqmRZowEKNQAMyLdCAUiu1QAMyLdCAUsu0QAMyrdQC
+Dci0QANKrdQCDci0QAM4JAo0INM/LbXvCZBpgQaUWqkFGpBpgQZwSBRoQKZ/
+VmrfCiDTAg2g1AINyPQCmfZZAA6JAg1goRZoQKYXyLQvAFDqaKkNHpDpaKaN
+HFDqaKZNGpDpaKnNGJDpaKZNF1DqaKkNFZDpaKaNE1DqaKZNEZDpaKnND5Dp
+aKZNDlDqaKkNDJDpaKaNClDqaKZNCJDp6EJtNgDRTJsKQLTUhgEQzbQxAEQP
+iV4fILpQe3eAaKa9OEC01B4aIJppTwwQLbWXBYhm2psCRDPtNQGipfaIANFM
+H+RrIGPPIIk6AAAAAElFTkSuQmCC"/>
+    <text x="944.88" y="236.22" font-family="Noto Sans" font-size="110" fill="#FFFFFF" text-anchor="middle">photo</text>
+    <rect id="connector0pin" x="137.79" y="334.65" width="118.11" height="118.11" fill="#9A916C" stroke="none"/>
+    <rect id="connector0terminal" x="191.85" y="388.7" width="10" height="10" fill="#9A916C" stroke="none"/>
+    <circle cx="196.85" cy="393.7" r="19.69" fill="#000000" stroke="none"/>
+    <text x="196.85" y="542.76" font-family="Noto Sans" font-size="70" fill="#FFFFFF" text-anchor="middle">A</text>
+    <rect id="connector1pin" x="1633.86" y="334.65" width="118.11" height="118.11" fill="#9A916C" stroke="none"/>
+    <rect id="connector1terminal" x="1687.91" y="388.7" width="10" height="10" fill="#9A916C" stroke="none"/>
+    <circle cx="1692.91" cy="393.7" r="19.69" fill="#000000" stroke="none"/>
+    <text x="1692.91" y="542.76" font-family="Noto Sans" font-size="70" fill="#FFFFFF" text-anchor="middle">B</text>
+  </g>
+</svg>

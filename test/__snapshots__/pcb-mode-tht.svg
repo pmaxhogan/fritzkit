@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0.786in" height="0.914in" viewBox="0 0 786 914">
+<g id="silkscreen">
+<rect x="72.504" y="90.614" width="692.787" height="818.772" rx="78.74" ry="78.74" fill="none" stroke="#000000" stroke-width="8"/>
+</g>
+<g id="copper1">
+<g id="copper0">
+<rect x="52.756" y="168.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector0pin" cx="100" cy="200" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="52.756" y="268.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector1pin" cx="100" cy="300" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="52.756" y="368.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector2pin" cx="100" cy="400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="52.756" y="468.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector3pin" cx="100" cy="500" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="52.756" y="568.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector4pin" cx="100" cy="600" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="52.756" y="668.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector5pin" cx="100" cy="700" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="52.756" y="768.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector6pin" cx="100" cy="800" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="690.551" y="168.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector7pin" cx="737.795" cy="200" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="690.551" y="268.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector8pin" cx="737.795" cy="300" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="690.551" y="368.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector9pin" cx="737.795" cy="400" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="690.551" y="468.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector10pin" cx="737.795" cy="500" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="690.551" y="568.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector11pin" cx="737.795" cy="600" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="690.551" y="668.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector12pin" cx="737.795" cy="700" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+<rect x="690.551" y="768.504" width="94.488" height="62.992" fill="#F7BD13" stroke="none"/>
+<circle id="connector13pin" cx="737.795" cy="800" r="30" fill="none" stroke="#F7BD13" stroke-width="20"/>
+</g>
+</g>
+</svg>

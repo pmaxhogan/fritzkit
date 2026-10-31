@@ -89,7 +89,11 @@
         "shape": {
           "default": "rounded",
           "type": "string",
-          "enum": ["rect", "rounded", "custom"]
+          "enum": [
+            "rect",
+            "rounded",
+            "custom"
+          ]
         },
         "cornerRadiusMm": {
           "default": 1,
@@ -116,12 +120,19 @@
                 "exclusiveMinimum": 0
               }
             },
-            "required": ["xMm", "yMm", "dMm"],
+            "required": [
+              "xMm",
+              "yMm",
+              "dMm"
+            ],
             "additionalProperties": false
           }
         }
       },
-      "required": ["widthMm", "heightMm"],
+      "required": [
+        "widthMm",
+        "heightMm"
+      ],
       "additionalProperties": false
     },
     "artwork": {
@@ -131,7 +142,10 @@
         "style": {
           "default": "vector",
           "type": "string",
-          "enum": ["vector", "photo"]
+          "enum": [
+            "vector",
+            "photo"
+          ]
         },
         "boardColor": {
           "default": "#1B7F3B",
@@ -179,14 +193,23 @@
                   "anchor": {
                     "default": "middle",
                     "type": "string",
-                    "enum": ["start", "middle", "end"]
+                    "enum": [
+                      "start",
+                      "middle",
+                      "end"
+                    ]
                   },
                   "rotate": {
                     "default": 0,
                     "type": "number"
                   }
                 },
-                "required": ["kind", "text", "xMm", "yMm"],
+                "required": [
+                  "kind",
+                  "text",
+                  "xMm",
+                  "yMm"
+                ],
                 "additionalProperties": false
               },
               {
@@ -225,7 +248,13 @@
                     "maxLength": 120
                   }
                 },
-                "required": ["kind", "xMm", "yMm", "wMm", "hMm"],
+                "required": [
+                  "kind",
+                  "xMm",
+                  "yMm",
+                  "wMm",
+                  "hMm"
+                ],
                 "additionalProperties": false
               },
               {
@@ -255,7 +284,12 @@
                     "maxLength": 120
                   }
                 },
-                "required": ["kind", "xMm", "yMm", "dMm"],
+                "required": [
+                  "kind",
+                  "xMm",
+                  "yMm",
+                  "dMm"
+                ],
                 "additionalProperties": false
               },
               {
@@ -288,7 +322,13 @@
                     "pattern": "^#[0-9A-Fa-f]{6}$"
                   }
                 },
-                "required": ["kind", "x1Mm", "y1Mm", "x2Mm", "y2Mm"],
+                "required": [
+                  "kind",
+                  "x1Mm",
+                  "y1Mm",
+                  "x2Mm",
+                  "y2Mm"
+                ],
                 "additionalProperties": false
               }
             ]
@@ -330,14 +370,23 @@
                   "anchor": {
                     "default": "middle",
                     "type": "string",
-                    "enum": ["start", "middle", "end"]
+                    "enum": [
+                      "start",
+                      "middle",
+                      "end"
+                    ]
                   },
                   "rotate": {
                     "default": 0,
                     "type": "number"
                   }
                 },
-                "required": ["kind", "text", "xMm", "yMm"],
+                "required": [
+                  "kind",
+                  "text",
+                  "xMm",
+                  "yMm"
+                ],
                 "additionalProperties": false
               },
               {
@@ -376,7 +425,13 @@
                     "maxLength": 120
                   }
                 },
-                "required": ["kind", "xMm", "yMm", "wMm", "hMm"],
+                "required": [
+                  "kind",
+                  "xMm",
+                  "yMm",
+                  "wMm",
+                  "hMm"
+                ],
                 "additionalProperties": false
               },
               {
@@ -406,7 +461,12 @@
                     "maxLength": 120
                   }
                 },
-                "required": ["kind", "xMm", "yMm", "dMm"],
+                "required": [
+                  "kind",
+                  "xMm",
+                  "yMm",
+                  "dMm"
+                ],
                 "additionalProperties": false
               },
               {
@@ -439,7 +499,13 @@
                     "pattern": "^#[0-9A-Fa-f]{6}$"
                   }
                 },
-                "required": ["kind", "x1Mm", "y1Mm", "x2Mm", "y2Mm"],
+                "required": [
+                  "kind",
+                  "x1Mm",
+                  "y1Mm",
+                  "x2Mm",
+                  "y2Mm"
+                ],
                 "additionalProperties": false
               }
             ]
@@ -504,7 +570,9 @@
               "maximum": 1
             }
           },
-          "required": ["src"],
+          "required": [
+            "src"
+          ],
           "additionalProperties": false
         }
       },
@@ -556,7 +624,12 @@
           "type": {
             "default": "female",
             "type": "string",
-            "enum": ["male", "female", "pad", "wire"]
+            "enum": [
+              "male",
+              "female",
+              "pad",
+              "wire"
+            ]
           },
           "xMm": {
             "type": "number"
@@ -576,7 +649,11 @@
               "shape": {
                 "default": "rect",
                 "type": "string",
-                "enum": ["rect", "round", "oval"]
+                "enum": [
+                  "rect",
+                  "round",
+                  "oval"
+                ]
               },
               "wMm": {
                 "type": "number",
@@ -594,14 +671,22 @@
                 "type": "boolean"
               }
             },
-            "required": ["wMm", "hMm"],
+            "required": [
+              "wMm",
+              "hMm"
+            ],
             "additionalProperties": false
           },
           "snap": {
             "type": "boolean"
           }
         },
-        "required": ["key", "name", "xMm", "yMm"],
+        "required": [
+          "key",
+          "name",
+          "xMm",
+          "yMm"
+        ],
         "additionalProperties": false
       }
     },
@@ -618,7 +703,11 @@
           "kind": {
             "default": "male",
             "type": "string",
-            "enum": ["male", "female", "castellated"]
+            "enum": [
+              "male",
+              "female",
+              "castellated"
+            ]
           },
           "pitchMm": {
             "default": 2.54,
@@ -645,7 +734,10 @@
           "orientation": {
             "default": "horizontal",
             "type": "string",
-            "enum": ["horizontal", "vertical"]
+            "enum": [
+              "horizontal",
+              "vertical"
+            ]
           },
           "pins": {
             "type": "array",
@@ -692,7 +784,10 @@
                       ]
                     }
                   },
-                  "required": ["key", "name"],
+                  "required": [
+                    "key",
+                    "name"
+                  ],
                   "additionalProperties": false
                 },
                 {
@@ -707,7 +802,11 @@
               "shape": {
                 "default": "rect",
                 "type": "string",
-                "enum": ["rect", "round", "oval"]
+                "enum": [
+                  "rect",
+                  "round",
+                  "oval"
+                ]
               },
               "wMm": {
                 "type": "number",
@@ -725,11 +824,20 @@
                 "type": "boolean"
               }
             },
-            "required": ["wMm", "hMm"],
+            "required": [
+              "wMm",
+              "hMm"
+            ],
             "additionalProperties": false
           }
         },
-        "required": ["key", "cols", "xMm", "yMm", "pins"],
+        "required": [
+          "key",
+          "cols",
+          "xMm",
+          "yMm",
+          "pins"
+        ],
         "additionalProperties": false
       }
     },
@@ -795,7 +903,12 @@
           "direction": {
             "default": "left",
             "type": "string",
-            "enum": ["left", "right", "up", "down"]
+            "enum": [
+              "left",
+              "right",
+              "up",
+              "down"
+            ]
           },
           "gaugeMm": {
             "default": 1.6,
@@ -803,7 +916,12 @@
             "exclusiveMinimum": 0
           }
         },
-        "required": ["key", "name", "fromXMm", "fromYMm"],
+        "required": [
+          "key",
+          "name",
+          "fromXMm",
+          "fromYMm"
+        ],
         "additionalProperties": false
       }
     },
@@ -839,7 +957,10 @@
             }
           }
         },
-        "required": ["id", "pins"],
+        "required": [
+          "id",
+          "pins"
+        ],
         "additionalProperties": false
       }
     },
@@ -858,7 +979,9 @@
           }
         }
       },
-      "required": ["lines"],
+      "required": [
+        "lines"
+      ],
       "additionalProperties": false
     },
     "schematic": {
@@ -868,7 +991,9 @@
         "layout": {
           "default": "by-role",
           "type": "string",
-          "enum": ["by-role"]
+          "enum": [
+            "by-role"
+          ]
         },
         "sides": {
           "type": "object",
@@ -974,7 +1099,11 @@
         "mode": {
           "default": "auto",
           "type": "string",
-          "enum": ["auto", "tht", "smd"]
+          "enum": [
+            "auto",
+            "tht",
+            "smd"
+          ]
         },
         "silkscreenOutline": {
           "default": true,
@@ -984,6 +1113,10 @@
       "additionalProperties": false
     }
   },
-  "required": ["slug", "title", "outline"],
+  "required": [
+    "slug",
+    "title",
+    "outline"
+  ],
   "additionalProperties": false
 }

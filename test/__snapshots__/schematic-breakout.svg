@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0.8in" height="0.6in" viewBox="0 0 800 600">
+  <g id="schematic">
+    <rect x="100" y="4.85" width="600" height="495.15" fill="#FFFFFF" stroke="#000000" stroke-width="9.7"/>
+    <text x="400" y="59" font-family="Noto Sans" font-size="59" fill="#000000" text-anchor="middle">Sensor Breakout</text>
+    <line id="connector0pin" x1="100" y1="100" x2="0" y2="100" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector0terminal" x="-0.5" y="99.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="125" y="117.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start">VCC</text>
+    <line id="connector5pin" x1="100" y1="200" x2="0" y2="200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector5terminal" x="-0.5" y="199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="125" y="217.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start">3V3</text>
+    <line id="connector2pin" x1="700" y1="100" x2="800" y2="100" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector2terminal" x="799.5" y="99.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="675" y="117.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">SDA</text>
+    <line id="connector3pin" x1="700" y1="200" x2="800" y2="200" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector3terminal" x="799.5" y="199.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="675" y="217.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">SCL</text>
+    <line id="connector4pin" x1="700" y1="300" x2="800" y2="300" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector4terminal" x="799.5" y="299.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="675" y="317.2" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="end">INT</text>
+    <line id="connector1pin" x1="200" y1="500" x2="200" y2="600" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector1terminal" x="199.5" y="599.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="217.2" y="475" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 217.2 475)">GND</text>
+    <line id="connector6pin" x1="300" y1="500" x2="300" y2="600" stroke="#555555" stroke-width="9.7"/>
+    <rect id="connector6terminal" x="299.5" y="599.5" width="1" height="1" fill="#555555" stroke="none"/>
+    <text x="317.2" y="475" font-family="Noto Sans" font-size="49" fill="#000000" text-anchor="start" transform="rotate(-90 317.2 475)">GND2</text>
+  </g>
+</svg>

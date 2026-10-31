@@ -6,12 +6,17 @@ import { fmt, mmToIn } from "./units.js";
 
 export type Attrs = Record<string, string | number | undefined>;
 
+/** XML-escape text; XML 1.0 forbids most C0 control characters, so they are dropped. */
 export function esc(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+  return (
+    s
+      // eslint-disable-next-line no-control-regex
+      .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+  );
 }
 
 export function attrs(a: Attrs): string {

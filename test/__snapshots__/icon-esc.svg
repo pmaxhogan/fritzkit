@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0.32in" height="0.32in" viewBox="0 0 320 320">
+<g id="icon">
+  <g transform="translate(16.496 98.672) scale(0.173)">
+  <rect x="44" y="4" width="1566.803" height="700.661" rx="74.74" ry="74.74" fill="#2B2B2B" stroke="#1E1E1E" stroke-width="8"/>
+  <text x="827.402" y="381.89" font-family="Noto Sans" font-size="78.74" fill="#FFFFFF" text-anchor="middle">30A ESC</text>
+  <line x1="40" y1="157.48" x2="-747.402" y2="157.48" stroke="#1060C0" stroke-width="62.992" stroke-linecap="round"/>
+  <line x1="40" y1="354.331" x2="-747.402" y2="354.331" stroke="#1060C0" stroke-width="62.992" stroke-linecap="round"/>
+  <line x1="40" y1="551.181" x2="-747.402" y2="551.181" stroke="#1060C0" stroke-width="62.992" stroke-linecap="round"/>
+  <line x1="1614.803" y1="236.22" x2="2599.055" y2="236.22" stroke="#D02020" stroke-width="78.74" stroke-linecap="round"/>
+  <line x1="1614.803" y1="472.441" x2="2599.055" y2="472.441" stroke="#000000" stroke-width="78.74" stroke-linecap="round"/>
+  <circle cx="40" cy="157.48" r="31.496" fill="#9A916C"/>
+  <circle cx="40" cy="354.331" r="31.496" fill="#9A916C"/>
+  <circle cx="40" cy="551.181" r="31.496" fill="#9A916C"/>
+  <circle cx="1614.803" cy="236.22" r="39.37" fill="#9A916C"/>
+  <circle cx="1614.803" cy="472.441" r="39.37" fill="#9A916C"/>
+</g>
+</g>
+</svg>

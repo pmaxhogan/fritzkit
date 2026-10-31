@@ -55,8 +55,8 @@ export const STYLE = {
 
 /** Default pin colours by role for the vector style breadboard pin labels. */
 export const ROLE_COLORS: Record<string, string> = {
-  power: "#D9534F",
-  gnd: "#333333",
+  power: "#F2A6A1",
+  gnd: "#E6E6E6",
   io: "#E6E6E6",
   analog: "#E6E6E6",
   pwm: "#E6E6E6",
