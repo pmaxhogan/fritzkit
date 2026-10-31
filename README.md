@@ -422,7 +422,7 @@ the tag and the GitHub Release. One-time setup:
 3. Arm the workflow: `gh variable set NPM_TRUSTED_PUBLISHING --body true -R pmaxhogan/fritzkit`.
 
 From then on every green push to `main` publishes `fritzkit@0.1.x`, tags `v0.1.x` and
-creates a GitHub Release with the tarball (an existing tag or release is left alone).
+creates a GitHub Release with the tarball.
 
 ## License
 
