@@ -50,7 +50,8 @@
     "test:watch": "vitest",
     "e2e": "node --import tsx scripts/e2e/run.ts",
     "fritzkit": "node --import tsx src/cli/main.ts",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "gen-schema": "node --import tsx scripts/gen-schema.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

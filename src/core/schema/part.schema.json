@@ -1,0 +1,989 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/pmaxhogan/fritzkit/main/src/core/schema/part.schema.json",
+  "title": "fritzkit part.json",
+  "description": "A fritzkit part spec. All lengths are millimetres; origin is the top-left corner of the outline, y down.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 60,
+      "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "version": {
+      "default": 1,
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "family": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
+    },
+    "label": {
+      "default": "A",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4
+    },
+    "author": {
+      "default": "fritzkit",
+      "type": "string",
+      "maxLength": 80
+    },
+    "tags": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+      }
+    },
+    "description": {
+      "default": "",
+      "type": "string",
+      "maxLength": 4000
+    },
+    "sources": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "properties": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1
+      },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "outline": {
+      "type": "object",
+      "properties": {
+        "widthMm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "heightMm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "shape": {
+          "default": "rounded",
+          "type": "string",
+          "enum": ["rect", "rounded", "custom"]
+        },
+        "cornerRadiusMm": {
+          "default": 1,
+          "type": "number",
+          "minimum": 0
+        },
+        "pathMm": {
+          "type": "string"
+        },
+        "holes": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "xMm": {
+                "type": "number"
+              },
+              "yMm": {
+                "type": "number"
+              },
+              "dMm": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": ["xMm", "yMm", "dMm"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["widthMm", "heightMm"],
+      "additionalProperties": false
+    },
+    "artwork": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "style": {
+          "default": "vector",
+          "type": "string",
+          "enum": ["vector", "photo"]
+        },
+        "boardColor": {
+          "default": "#1B7F3B",
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "silkColor": {
+          "default": "#FFFFFF",
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "silkscreen": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "text"
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 80
+                  },
+                  "xMm": {
+                    "type": "number"
+                  },
+                  "yMm": {
+                    "type": "number"
+                  },
+                  "sizeMm": {
+                    "default": 1.2,
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "color": {
+                    "default": "#FFFFFF",
+                    "type": "string",
+                    "pattern": "^#[0-9A-Fa-f]{6}$"
+                  },
+                  "anchor": {
+                    "default": "middle",
+                    "type": "string",
+                    "enum": ["start", "middle", "end"]
+                  },
+                  "rotate": {
+                    "default": 0,
+                    "type": "number"
+                  }
+                },
+                "required": ["kind", "text", "xMm", "yMm"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "rect"
+                  },
+                  "xMm": {
+                    "type": "number"
+                  },
+                  "yMm": {
+                    "type": "number"
+                  },
+                  "wMm": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "hMm": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "color": {
+                    "default": "#222222",
+                    "type": "string",
+                    "pattern": "^#[0-9A-Fa-f]{6}$"
+                  },
+                  "rxMm": {
+                    "default": 0,
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "note": {
+                    "type": "string",
+                    "maxLength": 120
+                  }
+                },
+                "required": ["kind", "xMm", "yMm", "wMm", "hMm"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "circle"
+                  },
+                  "xMm": {
+                    "type": "number"
+                  },
+                  "yMm": {
+                    "type": "number"
+                  },
+                  "dMm": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "color": {
+                    "default": "#222222",
+                    "type": "string",
+                    "pattern": "^#[0-9A-Fa-f]{6}$"
+                  },
+                  "note": {
+                    "type": "string",
+                    "maxLength": 120
+                  }
+                },
+                "required": ["kind", "xMm", "yMm", "dMm"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "line"
+                  },
+                  "x1Mm": {
+                    "type": "number"
+                  },
+                  "y1Mm": {
+                    "type": "number"
+                  },
+                  "x2Mm": {
+                    "type": "number"
+                  },
+                  "y2Mm": {
+                    "type": "number"
+                  },
+                  "widthMm": {
+                    "default": 0.2,
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "color": {
+                    "default": "#FFFFFF",
+                    "type": "string",
+                    "pattern": "^#[0-9A-Fa-f]{6}$"
+                  }
+                },
+                "required": ["kind", "x1Mm", "y1Mm", "x2Mm", "y2Mm"],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "components": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "text"
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 80
+                  },
+                  "xMm": {
+                    "type": "number"
+                  },
+                  "yMm": {
+                    "type": "number"
+                  },
+                  "sizeMm": {
+                    "default": 1.2,
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "color": {
+                    "default": "#FFFFFF",
+                    "type": "string",
+                    "pattern": "^#[0-9A-Fa-f]{6}$"
+                  },
+                  "anchor": {
+                    "default": "middle",
+                    "type": "string",
+                    "enum": ["start", "middle", "end"]
+                  },
+                  "rotate": {
+                    "default": 0,
+                    "type": "number"
+                  }
+                },
+                "required": ["kind", "text", "xMm", "yMm"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "rect"
+                  },
+                  "xMm": {
+                    "type": "number"
+                  },
+                  "yMm": {
+                    "type": "number"
+                  },
+                  "wMm": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "hMm": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "color": {
+                    "default": "#222222",
+                    "type": "string",
+                    "pattern": "^#[0-9A-Fa-f]{6}$"
+                  },
+                  "rxMm": {
+                    "default": 0,
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "note": {
+                    "type": "string",
+                    "maxLength": 120
+                  }
+                },
+                "required": ["kind", "xMm", "yMm", "wMm", "hMm"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "circle"
+                  },
+                  "xMm": {
+                    "type": "number"
+                  },
+                  "yMm": {
+                    "type": "number"
+                  },
+                  "dMm": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "color": {
+                    "default": "#222222",
+                    "type": "string",
+                    "pattern": "^#[0-9A-Fa-f]{6}$"
+                  },
+                  "note": {
+                    "type": "string",
+                    "maxLength": 120
+                  }
+                },
+                "required": ["kind", "xMm", "yMm", "dMm"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "line"
+                  },
+                  "x1Mm": {
+                    "type": "number"
+                  },
+                  "y1Mm": {
+                    "type": "number"
+                  },
+                  "x2Mm": {
+                    "type": "number"
+                  },
+                  "y2Mm": {
+                    "type": "number"
+                  },
+                  "widthMm": {
+                    "default": 0.2,
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "color": {
+                    "default": "#FFFFFF",
+                    "type": "string",
+                    "pattern": "^#[0-9A-Fa-f]{6}$"
+                  }
+                },
+                "required": ["kind", "x1Mm", "y1Mm", "x2Mm", "y2Mm"],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "photo": {
+          "type": "object",
+          "properties": {
+            "src": {
+              "type": "string",
+              "minLength": 1
+            },
+            "crop": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "rotate": {
+              "default": 0,
+              "anyOf": [
+                {
+                  "type": "number",
+                  "const": 0
+                },
+                {
+                  "type": "number",
+                  "const": 90
+                },
+                {
+                  "type": "number",
+                  "const": 180
+                },
+                {
+                  "type": "number",
+                  "const": 270
+                }
+              ]
+            },
+            "removeBackground": {
+              "default": true,
+              "type": "boolean"
+            },
+            "opacity": {
+              "default": 1,
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": ["src"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "pins": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.+-]*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 16
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 400
+          },
+          "role": {
+            "default": "io",
+            "type": "string",
+            "enum": [
+              "power",
+              "gnd",
+              "io",
+              "analog",
+              "pwm",
+              "i2c",
+              "spi",
+              "uart",
+              "usb",
+              "clock",
+              "reset",
+              "enable",
+              "nc",
+              "other"
+            ]
+          },
+          "type": {
+            "default": "female",
+            "type": "string",
+            "enum": ["male", "female", "pad", "wire"]
+          },
+          "xMm": {
+            "type": "number"
+          },
+          "yMm": {
+            "type": "number"
+          },
+          "pad": {
+            "default": {
+              "shape": "rect",
+              "wMm": 2,
+              "hMm": 2,
+              "holeMm": 1
+            },
+            "type": "object",
+            "properties": {
+              "shape": {
+                "default": "rect",
+                "type": "string",
+                "enum": ["rect", "round", "oval"]
+              },
+              "wMm": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "hMm": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "holeMm": {
+                "type": "number",
+                "minimum": 0
+              },
+              "smd": {
+                "type": "boolean"
+              }
+            },
+            "required": ["wMm", "hMm"],
+            "additionalProperties": false
+          },
+          "snap": {
+            "type": "boolean"
+          }
+        },
+        "required": ["key", "name", "xMm", "yMm"],
+        "additionalProperties": false
+      }
+    },
+    "headers": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.+-]*$"
+          },
+          "kind": {
+            "default": "male",
+            "type": "string",
+            "enum": ["male", "female", "castellated"]
+          },
+          "pitchMm": {
+            "default": 2.54,
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "rows": {
+            "default": 1,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8
+          },
+          "cols": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 64
+          },
+          "xMm": {
+            "type": "number"
+          },
+          "yMm": {
+            "type": "number"
+          },
+          "orientation": {
+            "default": "horizontal",
+            "type": "string",
+            "enum": ["horizontal", "vertical"]
+          },
+          "pins": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.+-]*$"
+                    },
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 40
+                    },
+                    "label": {
+                      "type": "string",
+                      "maxLength": 16
+                    },
+                    "description": {
+                      "type": "string",
+                      "maxLength": 400
+                    },
+                    "role": {
+                      "default": "io",
+                      "type": "string",
+                      "enum": [
+                        "power",
+                        "gnd",
+                        "io",
+                        "analog",
+                        "pwm",
+                        "i2c",
+                        "spi",
+                        "uart",
+                        "usb",
+                        "clock",
+                        "reset",
+                        "enable",
+                        "nc",
+                        "other"
+                      ]
+                    }
+                  },
+                  "required": ["key", "name"],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "pad": {
+            "type": "object",
+            "properties": {
+              "shape": {
+                "default": "rect",
+                "type": "string",
+                "enum": ["rect", "round", "oval"]
+              },
+              "wMm": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "hMm": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "holeMm": {
+                "type": "number",
+                "minimum": 0
+              },
+              "smd": {
+                "type": "boolean"
+              }
+            },
+            "required": ["wMm", "hMm"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["key", "cols", "xMm", "yMm", "pins"],
+        "additionalProperties": false
+      }
+    },
+    "leads": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.+-]*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 16
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 400
+          },
+          "role": {
+            "default": "io",
+            "type": "string",
+            "enum": [
+              "power",
+              "gnd",
+              "io",
+              "analog",
+              "pwm",
+              "i2c",
+              "spi",
+              "uart",
+              "usb",
+              "clock",
+              "reset",
+              "enable",
+              "nc",
+              "other"
+            ]
+          },
+          "color": {
+            "default": "#000000",
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          },
+          "lengthMm": {
+            "default": 40,
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "fromXMm": {
+            "type": "number"
+          },
+          "fromYMm": {
+            "type": "number"
+          },
+          "direction": {
+            "default": "left",
+            "type": "string",
+            "enum": ["left", "right", "up", "down"]
+          },
+          "gaugeMm": {
+            "default": 1.6,
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": ["key", "name", "fromXMm", "fromYMm"],
+        "additionalProperties": false
+      }
+    },
+    "pinIds": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.+-]*$"
+      },
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+      }
+    },
+    "buses": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]+$"
+          },
+          "pins": {
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.+-]*$"
+            }
+          }
+        },
+        "required": ["id", "pins"],
+        "additionalProperties": false
+      }
+    },
+    "spice": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "lines": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": ["lines"],
+      "additionalProperties": false
+    },
+    "schematic": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "layout": {
+          "default": "by-role",
+          "type": "string",
+          "enum": ["by-role"]
+        },
+        "sides": {
+          "type": "object",
+          "properties": {
+            "left": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "power",
+                  "gnd",
+                  "io",
+                  "analog",
+                  "pwm",
+                  "i2c",
+                  "spi",
+                  "uart",
+                  "usb",
+                  "clock",
+                  "reset",
+                  "enable",
+                  "nc",
+                  "other"
+                ]
+              }
+            },
+            "right": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "power",
+                  "gnd",
+                  "io",
+                  "analog",
+                  "pwm",
+                  "i2c",
+                  "spi",
+                  "uart",
+                  "usb",
+                  "clock",
+                  "reset",
+                  "enable",
+                  "nc",
+                  "other"
+                ]
+              }
+            },
+            "top": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "power",
+                  "gnd",
+                  "io",
+                  "analog",
+                  "pwm",
+                  "i2c",
+                  "spi",
+                  "uart",
+                  "usb",
+                  "clock",
+                  "reset",
+                  "enable",
+                  "nc",
+                  "other"
+                ]
+              }
+            },
+            "bottom": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "power",
+                  "gnd",
+                  "io",
+                  "analog",
+                  "pwm",
+                  "i2c",
+                  "spi",
+                  "uart",
+                  "usb",
+                  "clock",
+                  "reset",
+                  "enable",
+                  "nc",
+                  "other"
+                ]
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "pcb": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "mode": {
+          "default": "auto",
+          "type": "string",
+          "enum": ["auto", "tht", "smd"]
+        },
+        "silkscreenOutline": {
+          "default": true,
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["slug", "title", "outline"],
+  "additionalProperties": false
+}
