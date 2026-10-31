@@ -1,0 +1,34 @@
+name: fzp-checker
+
+# Dev-only Python tool (stack mode tooling.python=dev-only): the vendored Fritzing part
+# checker under tools/fzp-checker, run with uv. Standard test.python-black-pytest-uv:
+# locked sync, black --check, pytest. Also runs the checker over every example part so
+# a regression in the compiler's output shows up here, not in Fritzing.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/fzp-checker
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: tools/fzp-checker/uv.lock
+      - run: uv sync --locked --all-groups
+      - run: uv run black --check .
+      - run: uv run pytest -q

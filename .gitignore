@@ -1,0 +1,18 @@
+# Private handoff spec (contains local paths and session state)
+.claude/fritzkit-spec.md
+
+node_modules/
+dist/
+coverage/
+*.tgz
+e2e-out/
+.venv/
+__pycache__/
+tools/fzp-checker/.venv/
+**/__pycache__/
+.pytest_cache/
+*.log
+.DS_Store
+Thumbs.db
+tools/fzp-checker/fzp_checker.egg-info/
+*.egg-info/

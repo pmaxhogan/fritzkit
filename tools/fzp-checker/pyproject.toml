@@ -1,0 +1,26 @@
+[project]
+name = "fzp-checker"
+version = "0.1.0"
+description = "Dev-only wrapper around Fritzing's vendored fzp_checker"
+requires-python = ">=3.13"
+dependencies = ["lxml"]
+
+[project.scripts]
+check-fzp = "check_fzp:main"
+
+[dependency-groups]
+dev = ["black", "pytest"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["check_fzp"]
+
+[tool.black]
+extend-exclude = "vendor"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

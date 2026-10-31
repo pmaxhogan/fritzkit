@@ -1,0 +1,12 @@
+dist/
+coverage/
+node_modules/
+tools/fzp-checker/vendor/
+tools/fzp-checker/.venv/
+package-lock.json
+uv.lock
+*.fzpz
+*.fzz
+*.svg
+test/**/__snapshots__/
+CHANGELOG.md
