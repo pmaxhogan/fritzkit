@@ -28,7 +28,7 @@
 - mode: release.target=npm+github-release
 - mode: repo.protection=rulesets-applied-2026-10-31
 - mode: stack.type=node-ts
-- mode: test.coverage-ratchet=ruleset
+- mode: test.coverage-ratchet=compare-job
 - mode: tooling.python=dev-only
 
 <!-- stack:end -->

@@ -1,5 +1,5 @@
 {
-  "_comment": "Applied after the HW-391 acceptance passed (spec D25): POST /repos/pmaxhogan/fritzkit/rulesets. Required checks are the job names of ci.yml and fzp-checker.yml. No review requirement (personal repo); Dependabot auto-merge waits for these checks.",
+  "_comment": "Applied 2026-10-31 after the HW-391 acceptance passed (spec D25): POST /repos/pmaxhogan/fritzkit/rulesets. Required checks are the job names of ci.yml, fzp-checker.yml and coverage.yml (the base-vs-head coverage ratchet; the native code_coverage ruleset rule needs GitHub Code Quality, which needs a Team or Enterprise Cloud plan, so it is created but inert on this personal repo). Admin bypass keeps direct pushes to main working (ship.policy); Dependabot PRs wait for all three checks.",
   "name": "main: required checks",
   "target": "branch",
   "enforcement": "active",
@@ -34,6 +34,10 @@
           },
           {
             "context": "fzp-checker",
+            "integration_id": 15368
+          },
+          {
+            "context": "coverage",
             "integration_id": 15368
           }
         ]
