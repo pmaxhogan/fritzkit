@@ -83,3 +83,5 @@ header, the GND pins). The differences that matter to a user:
   21 mm. The breadboard pin pitch is exact in fritzkit (100.00 mil) and slightly irregular in
   the community part (100.06 / 100.00 mil); its schematic pins are 100.5 mil apart and off the
   0.1 in grid, ours are on it.
+
+<!-- ratchet probe: this PR exists only to show the required coverage check; it is closed unmerged -->
