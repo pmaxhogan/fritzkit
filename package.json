@@ -23,7 +23,7 @@
     "node": ">=22"
   },
   "bin": {
-    "fritzkit": "./dist/cli/main.js"
+    "fritzkit": "dist/cli/main.js"
   },
   "main": "./dist/core/index.js",
   "types": "./dist/core/index.d.ts",
