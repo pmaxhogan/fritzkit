@@ -398,6 +398,32 @@ server from source when you work in this repo. Keep its server name `fritzkit`: 
 manifest declares a server with the same name, which replaces the dev entry when the plugin
 is installed, so installers run `npx -y fritzkit mcp` and never the source checkout.
 
+## Releasing
+
+`release.yml` runs after every green CI run on `main` (plus a daily cron) and publishes a
+patch release, the same setup as `pmaxhogan/tasker-mcp`. The version is computed from the
+registry (latest published patch + 1, never below the `major.minor.0` floor in
+`package.json`) and is not committed back. The job installs with `--ignore-scripts` and no
+dependency cache, and npm attaches provenance.
+
+Auth is npm trusted publishing (OIDC) only; no token is stored. Until the repository
+variable `NPM_TRUSTED_PUBLISHING` is `true`, the job runs `npm publish --dry-run` and skips
+the tag and the GitHub Release. One-time setup:
+
+1. The package must exist before a trusted publisher can be attached. Publish the first
+   version by hand: `npm login`, `npm ci`, `npm run build`, `npm publish --access public`
+   (npm asks for 2FA once).
+2. Attach the trusted publisher, allowing direct publishes (2FA once):
+
+   ```bash
+   npm trust github fritzkit --repo pmaxhogan/fritzkit --file release.yml --allow-publish
+   ```
+
+3. Arm the workflow: `gh variable set NPM_TRUSTED_PUBLISHING --body true -R pmaxhogan/fritzkit`.
+
+From then on every green push to `main` publishes `fritzkit@0.1.x`, tags `v0.1.x` and
+creates a GitHub Release with the tarball (an existing tag or release is left alone).
+
 ## License
 
 fritzkit itself is MIT (see [LICENSE](LICENSE)). Parts generated with fritzkit are

@@ -1,12 +1,19 @@
 name: release
 
-# Release on every green push to main (stack standards release.on-main, ci.deploy-on-main):
-#   - computes the next patch version from the newest v* tag (auto patch bump)
-#   - publishes to npm: a real publish when the NPM_TOKEN secret exists, otherwise a
-#     dry run (the job must not block the project on npm auth; see README "Releasing")
-#   - always creates a GitHub Release with the packed tarball
-# The daily cron exists because a Dependabot merge made with GITHUB_TOKEN triggers no
-# push workflow; the cron releases anything main has accumulated since the last tag.
+# Every green push to main publishes a patch release (same setup as pmaxhogan/tasker-mcp).
+# The version is computed from the registry, never committed back: package.json holds
+# major.minor.0 as the floor, and the next version is max(latest published patch + 1, floor).
+#
+# Auth is npm trusted publishing (OIDC) only: no token is stored anywhere. npm is retiring
+# direct publishes from 2FA-bypass tokens (they will only be able to stage a release for a
+# human to approve), so a token would turn every release into a manual step. The trusted
+# publisher on npmjs.com must allow `npm publish`; a stage-only publisher makes this job
+# fail, by design, rather than queue a release that waits for approval.
+#
+# The real publish is armed when the repository variable NPM_TRUSTED_PUBLISHING is "true".
+# Without it, the job runs `npm publish --dry-run` and skips the tag and the GitHub Release.
+# The daily cron exists because a Dependabot merge made with GITHUB_TOKEN triggers no push
+# workflow (stack standard release.on-main).
 on:
   workflow_run:
     workflows: [ci]
@@ -16,16 +23,17 @@ on:
     - cron: "17 11 * * *"
   workflow_dispatch:
 
-permissions:
-  contents: write
-  id-token: write
-
 concurrency:
   group: release
   cancel-in-progress: false
 
+permissions:
+  contents: write
+  id-token: write
+
 jobs:
-  release:
+  publish:
+    name: Publish to npm
     # Only after a green CI run (or on schedule / manual dispatch).
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
@@ -33,65 +41,91 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: main
-          fetch-depth: 0
-
       - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
+          # No dependency cache in the release job: a poisoned cache entry would be published.
           registry-url: https://registry.npmjs.org
-          cache: npm
+      # No install scripts in the job that holds the npm credentials.
+      - run: npm ci --ignore-scripts
+      - run: npm run build
 
-      - run: npm ci
-
-      - name: Compute next version
-        id: ver
+      - name: Decide whether trusted publishing is configured
+        id: auth
+        env:
+          TRUSTED: ${{ vars.NPM_TRUSTED_PUBLISHING }}
         run: |
-          last="$(git tag --list 'v*' --sort=-v:refname | head -n1)"
-          if [ -z "$last" ]; then
-            next="$(node -p "require('./package.json').version")"
+          if [ "$TRUSTED" = "true" ]; then
+            echo "armed=true" >> "$GITHUB_OUTPUT"
           else
-            base="${last#v}"
-            if [ "$(git rev-list -n1 "$last")" = "$(git rev-parse HEAD)" ]; then
-              echo "HEAD is already tagged $last; nothing to release"
-              echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "armed=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::NPM_TRUSTED_PUBLISHING is not true; running publish --dry-run only"
+          fi
+
+      - name: Compute the next version
+        id: version
+        run: |
+          name=$(node -p "require('./package.json').name")
+          base=$(node -p "require('./package.json').version")
+          latest=$(npm view "$name" version 2>/dev/null || echo 0.0.0)
+          next=$(node scripts/next-version.mjs "$latest" "$base")
+          echo "latest=$latest base=$base next=$next"
+          echo "next=$next" >> "$GITHUB_OUTPUT"
+          npm version "$next" --no-git-tag-version --allow-same-version
+
+      - name: Dry run
+        if: steps.auth.outputs.armed != 'true'
+        run: npm publish --dry-run --access public
+
+      # npm exchanges the job's OIDC identity for a short-lived publish token and attaches
+      # provenance itself. Always `npm publish`, never `npm stage publish`: releases must
+      # not wait for a human.
+      #
+      # A version stays invisible to `npm view` for a few minutes after it is published, so
+      # a second push inside that window computes the same version and npm answers 409
+      # ("cannot publish over previously staged version"). On that conflict, take the next
+      # patch and try again.
+      - name: Publish
+        id: publish
+        if: steps.auth.outputs.armed == 'true'
+        env:
+          NEXT: ${{ steps.version.outputs.next }}
+        run: |
+          # Without pipefail the pipe into tee would hide a failed publish.
+          set -o pipefail
+          version="$NEXT"
+          for attempt in 1 2 3 4 5; do
+            npm version "$version" --no-git-tag-version --allow-same-version > /dev/null
+            if npm publish --access public 2>&1 | tee publish.log; then
+              echo "published=$version" >> "$GITHUB_OUTPUT"
               exit 0
             fi
-            IFS=. read -r a b c <<<"$base"
-            next="$a.$b.$((c + 1))"
-          fi
-          echo "next=$next" >> "$GITHUB_OUTPUT"
-          echo "skip=false" >> "$GITHUB_OUTPUT"
-          echo "next version: $next (last tag: ${last:-none})"
-
-      - name: Set version and build
-        if: steps.ver.outputs.skip != 'true'
-        run: |
-          npm version "${{ steps.ver.outputs.next }}" --no-git-tag-version --allow-same-version
-          npm run build
-          npm pack
-          ls -la fritzkit-*.tgz
-
-      - name: Publish to npm (dry run without NPM_TOKEN)
-        if: steps.ver.outputs.skip != 'true'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          if [ -n "$NODE_AUTH_TOKEN" ]; then
-            npm publish --access public --provenance
-          else
-            echo "::warning::NPM_TOKEN is not set; running npm publish --dry-run. Add the NPM_TOKEN repository secret (npm automation token) to arm publishing."
-            npm publish --access public --dry-run
-          fi
+            if ! grep -qiE "E409|cannot publish over" publish.log; then
+              exit 1
+            fi
+            taken="$version"
+            version=$(node scripts/next-version.mjs "$taken" "$taken")
+            echo "::notice::$taken is already taken on the registry; trying $version"
+          done
+          echo "::error::gave up after 5 version conflicts"
+          exit 1
 
       - name: Tag and GitHub Release
-        if: steps.ver.outputs.skip != 'true'
+        if: steps.auth.outputs.armed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          NEXT: ${{ steps.ver.outputs.next }}
+          PUBLISHED: ${{ steps.publish.outputs.published }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git tag -a "v$NEXT" -m "fritzkit v$NEXT"
-          git push origin "v$NEXT"
+          if git ls-remote --exit-code --tags origin "v$PUBLISHED" > /dev/null; then
+            echo "tag v$PUBLISHED already exists; leaving it"
+          else
+            git tag "v$PUBLISHED"
+            git push origin "v$PUBLISHED"
+          fi
+          npm pack
           notes="$(awk '/^## Unreleased/{flag=1;next}/^## /{flag=0}flag' CHANGELOG.md)"
-          gh release create "v$NEXT" fritzkit-*.tgz --title "fritzkit v$NEXT" --notes "${notes:-Automated release.}"
+          if gh release view "v$PUBLISHED" > /dev/null 2>&1; then
+            echo "release v$PUBLISHED already exists; leaving it"
+          else
+            gh release create "v$PUBLISHED" fritzkit-*.tgz --title "fritzkit v$PUBLISHED" --notes "${notes:-Automated release.}"
+          fi
