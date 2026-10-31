@@ -119,7 +119,7 @@ export async function createServer(opts: ServerOptions): Promise<UiServer> {
 
   const handle = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
     try {
-      if (!isLoopbackRequest(req.headers)) {
+      if (!isLoopbackRequest(req.headers, req.socket.localPort)) {
         throw new HttpError(403, "fritzkit ui only answers loopback requests from its own pages");
       }
       const url = new URL(req.url ?? "/", "http://127.0.0.1");

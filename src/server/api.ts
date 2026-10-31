@@ -46,6 +46,8 @@ export const ASSET_LIMIT = 25 * 1024 * 1024;
 const ASSET_NAME_RE = /^[A-Za-z0-9_][A-Za-z0-9_.-]{0,120}$/;
 /** Uploads are raster images only (the photo artwork style and calibration read them). */
 const ASSET_EXT_RE = /\.(png|jpe?g|webp|gif|avif|tiff?)$/i;
+/** Windows device names ("con.png" opens the console device, not a file). */
+const WIN_DEVICE_RE = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\.|$)/i;
 
 /** Raster types an asset may be served as; anything else is a download. */
 const ASSET_MIME: Record<string, string> = {
@@ -93,10 +95,16 @@ export function mimeOf(name: string): string {
 
 /**
  * An upload name is one safe path segment (no separators, no "..", no leading dot) with a
- * raster image extension (png, jpg/jpeg, webp, gif, avif, tif/tiff).
+ * raster image extension (png, jpg/jpeg, webp, gif, avif, tif/tiff), and not a Windows
+ * device name (con, nul, com1, ...).
  */
 export function isSafeAssetName(name: string): boolean {
-  return ASSET_NAME_RE.test(name) && !name.includes("..") && ASSET_EXT_RE.test(name);
+  return (
+    ASSET_NAME_RE.test(name) &&
+    !name.includes("..") &&
+    ASSET_EXT_RE.test(name) &&
+    !WIN_DEVICE_RE.test(name)
+  );
 }
 
 /** "assets/a/b.png" or "a/b.png" -> absolute path inside <dir>/assets, or undefined if unsafe. */

@@ -101,3 +101,13 @@ editor's origin.
 `createServer({ workspace, ctx })` in `src/server/index.ts` builds the server with the
 same injectable `CommandContext` as the CLI (fixed date, fake `isRunning`, Fritzing folder
 overrides), which is how the tests drive it.
+
+## Known limitations
+
+- Photo placement: `preparePhoto` trims the keyed photo to the detected board box before
+  stretching it over the outline. The canvas shows the photo with only crop and rotation
+  applied, so a crop looser than the board box shifts pads in the export. Use Auto-detect
+  (which sets the crop to the board box) before placing pads on a photo.
+- Concurrent edits: PUT has no version check. An external write landing inside the app's
+  autosave window can be overwritten; the "changed on disk" bar covers the common case.
+- `GET /api/parts/:slug/validate` persists newly allocated pinIds (same as the CLI).

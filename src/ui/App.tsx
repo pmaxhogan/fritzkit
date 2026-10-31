@@ -143,15 +143,32 @@ export function App() {
     setSaveIssues([]);
   }, []);
 
-  const reload = useCallback(async () => {
-    if (!slug) return;
-    try {
-      adopt(await api.get(slug));
-      setLoadError(null);
-    } catch (e) {
-      setLoadError(e instanceof Error ? e.message : String(e));
-    }
-  }, [slug, adopt]);
+  /**
+   * Load part.json from the server. `force` (Reload button, part switch) replaces local
+   * edits; otherwise (live reload, after export) edits made while the request was in
+   * flight are kept and a real disk change raises the "changed on disk" bar instead.
+   */
+  const reload = useCallback(
+    async (force = true) => {
+      if (!slug) return;
+      try {
+        const p = await api.get(slug);
+        if (!force && dirtyRef.current) {
+          setAssets(p.assets);
+          if (!known.current.has(p.hash)) {
+            pendingDiskHash.current = p.hash;
+            setDiskChanged(true);
+          }
+          return;
+        }
+        adopt(p);
+        setLoadError(null);
+      } catch (e) {
+        setLoadError(e instanceof Error ? e.message : String(e));
+      }
+    },
+    [slug, adopt],
+  );
 
   useEffect(() => {
     setPayload(null);
@@ -196,12 +213,13 @@ export function App() {
     [slug, notify],
   );
 
-  // Debounced autosave.
+  // Debounced autosave. Paused while the "changed on disk" bar is up, so the disk version
+  // is only overwritten by an explicit Save or "Keep mine".
   useEffect(() => {
-    if (!dirty) return;
+    if (!dirty || diskChanged) return;
     const t = setTimeout(() => void save(), AUTOSAVE_MS);
     return () => clearTimeout(t);
-  }, [raw, dirty, save]);
+  }, [raw, dirty, diskChanged, save]);
 
   // Live reload from disk (an agent editing part.json, or new assets).
   useEffect(() => {
@@ -226,7 +244,7 @@ export function App() {
       if (dirtyRef.current) {
         pendingDiskHash.current = data.hash;
         setDiskChanged(true);
-      } else void reload();
+      } else void reload(false);
     });
     return () => es.close();
   }, [slug, reload]);
@@ -499,7 +517,7 @@ export function App() {
                   version={`${payload?.hash ?? ""}-${assetsVersion}`}
                   saveNow={async () => (dirtyRef.current ? save(true) : true)}
                   notify={notify}
-                  onExported={() => void reload()}
+                  onExported={() => void reload(false)}
                 />
               ) : null}
               {tab === "Raw" ? (

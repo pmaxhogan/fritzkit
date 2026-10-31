@@ -13,7 +13,11 @@
 
 ## Layout
 
-- (describe the top-level directories and where the entry points live)
+- `src/core/` - pure compiler: `schema/` (zod spec + generated JSON Schema), `resolve.ts` (connectors, frame), `compile/` (fzp + 4 SVG renderers), `validate/`, `export/` (fzpz, install, prune), `image/` (sharp keying), `kicad/`
+- `src/cli/` (commander), `src/mcp/` (stdio server), `src/server/` + `src/ui/` (`fritzkit ui`)
+- `skills/fritzkit/` + `.claude-plugin/` - the Claude Code skill and plugin; `examples/` - golden parts
+- `scripts/e2e/` - local acceptance harness (Fritzing `-svg` render check + AutoHotkey GUI demo); `tools/fzp-checker/` - vendored Fritzing checker (uv)
+- `docs/architecture.md` explains the pipeline, coordinate frames and the verified Fritzing facts
 
 <!-- stack:begin (managed by the stack plugin; edit via /stack:remember or by hand, keep the markers) -->
 
@@ -22,7 +26,7 @@
 - scope: pmaxhogan
 - mode: deps.dependabot-mechanism=native
 - mode: release.target=npm+github-release
-- mode: repo.protection=deferred-until-hw391-acceptance
+- mode: repo.protection=rulesets-applied-2026-10-31
 - mode: stack.type=node-ts
 - mode: test.coverage-ratchet=ruleset
 - mode: tooling.python=dev-only

@@ -102,16 +102,39 @@ export function hostnameOf(value: string): string {
   return colon >= 0 ? v.slice(0, colon) : v;
 }
 
+/** Port of a Host header ("127.0.0.1:5173" -> 5173; no port -> 80). */
+function hostPortOf(value: string): number {
+  const v = value.trim();
+  const close = v.lastIndexOf("]");
+  const colon = v.lastIndexOf(":");
+  if (colon < 0 || colon < close) return 80;
+  const n = Number(v.slice(colon + 1));
+  return Number.isInteger(n) ? n : -1;
+}
+
 /**
  * Loopback guard against DNS rebinding and cross-site requests: the Host header must
- * name a loopback host and, when the browser sends an Origin, so must the Origin.
+ * name a loopback host and, when the browser sends an Origin, so must the Origin (an
+ * http: URL). With `localPort` (the port the request arrived on) both must also name
+ * that port, so a page served by another program on another loopback port cannot send
+ * "simple" (no preflight) POSTs to this server.
  */
-export function isLoopbackRequest(headers: IncomingMessage["headers"]): boolean {
+export function isLoopbackRequest(
+  headers: IncomingMessage["headers"],
+  localPort?: number,
+): boolean {
   const host = headers.host;
   if (host === undefined || !LOOPBACK.has(hostnameOf(host))) return false;
+  if (localPort !== undefined && hostPortOf(host) !== localPort) return false;
   const origin = headers.origin;
-  if (origin !== undefined && !LOOPBACK.has(hostnameOf(origin))) {
+  if (origin === undefined) return true;
+  let url: URL;
+  try {
+    url = new URL(origin);
+  } catch {
     return false;
   }
+  if (url.protocol !== "http:" || !LOOPBACK.has(url.hostname)) return false;
+  if (localPort !== undefined && Number(url.port || "80") !== localPort) return false;
   return true;
 }

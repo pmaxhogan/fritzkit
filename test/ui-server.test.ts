@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { request, createServer as createNetServer } from "node:http";
 import type { AddressInfo } from "node:net";
 import { join } from "node:path";
@@ -164,6 +164,22 @@ describe("static app", () => {
       headers: { origin: `http://localhost:${port}` },
     });
     expect(same.status).toBe(200);
+    // Another program on another loopback port must not reach the write routes with a
+    // "simple" (no preflight) text/plain POST.
+    const otherPort = await call("POST", `/api/parts/${SLUG}/export`, {
+      body: "{}",
+      headers: { origin: `http://127.0.0.1:${port + 1}`, "content-type": "text/plain" },
+    });
+    expect(otherPort.status).toBe(403);
+    expect(readdirSync(join(t.ws, SLUG)).filter((f) => f.endsWith(".fzpz"))).toEqual([]);
+    const wrongHostPort = await call("GET", "/api/parts", {
+      headers: { host: `127.0.0.1:${port + 1}` },
+    });
+    expect(wrongHostPort.status).toBe(403);
+    const https = await call("GET", "/api/parts", {
+      headers: { origin: `https://127.0.0.1:${port}` },
+    });
+    expect(https.status).toBe(403);
   });
 
   it("reports a missing build", async () => {
@@ -332,6 +348,9 @@ describe("parts API", () => {
     expect(busy.status).toBe(409);
     expect(busy.json()).toMatchObject({ reason: "fritzing-running" });
     expect(String(busy.json().error)).toContain("Fritzing is running");
+    // The refusal has no side effects: no .fzpz in the part folder, nothing installed.
+    expect(readdirSync(join(t.ws, SLUG)).filter((f) => f.endsWith(".fzpz"))).toEqual([]);
+    expect(readdirSync(t.userParts)).toEqual([]);
     t.running.value = false;
     const ok = await json("POST", `/api/parts/${SLUG}/install`, {});
     expect(ok.status).toBe(200);
@@ -541,6 +560,10 @@ describe("helpers", () => {
       "x.js",
       "x.png.html",
       "x",
+      "con.png",
+      "NUL.jpg",
+      "com1.png",
+      "lpt9.tif",
     ]) {
       expect(isSafeAssetName(n), n).toBe(false);
     }
@@ -569,6 +592,17 @@ describe("helpers", () => {
     expect(isLoopbackRequest({})).toBe(false);
     expect(isLoopbackRequest({ host: "localhost:1", origin: "null" })).toBe(false);
     expect(isLoopbackRequest({ host: "a.b:1" })).toBe(false);
+    expect(isLoopbackRequest({ host: "127.0.0.1:5173" }, 5173)).toBe(true);
+    expect(isLoopbackRequest({ host: "127.0.0.1:5174" }, 5173)).toBe(false);
+    expect(isLoopbackRequest({ host: "localhost" }, 5173)).toBe(false);
+    const h = { host: "127.0.0.1:5173" };
+    expect(isLoopbackRequest({ ...h, origin: "http://localhost:5173" }, 5173)).toBe(true);
+    expect(isLoopbackRequest({ ...h, origin: "http://localhost:3000" }, 5173)).toBe(false);
+    expect(isLoopbackRequest({ ...h, origin: "http://localhost" }, 5173)).toBe(false);
+    expect(isLoopbackRequest({ ...h, origin: "https://127.0.0.1:5173" }, 5173)).toBe(false);
+    expect(isLoopbackRequest({ ...h, origin: "http://127.0.0.1.evil.example:5173" }, 5173)).toBe(
+      false,
+    );
   });
 
   it("validates PUT bodies", () => {
