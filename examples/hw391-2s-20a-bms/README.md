@@ -18,9 +18,12 @@ a sketch that parses with five wired connectors.
 | P-   | 7.55, 7.60    | 8.0, 7.6    | 0.45  |
 | P+   | 7.55, 12.60   | 8.0, 13.2   | 0.75  |
 
-Nets: 0V (B-) and P- are different nets (the MOSFETs sit between them). The agent
-bused 8.4V and P+ after seeing one copper pour on the back photo; confirm with a
-meter before relying on it. The listing's product photos are Amazon's and are not
+Nets, confirmed with a multimeter on a bare board (2026-10-31, nothing attached,
+unpowered): 8.4V to P+ has continuity, so the `BPLUS` bus the agent inferred from the
+back-side copper is right; 0V to P- has no continuity (the MOSFETs sit between them), so
+those stay separate. Whether 8.4V and P+ are joined under every condition (e.g. after
+an over-charge cut-off) was not tested; on this board the high side appears to be a
+plain copper connection. The listing's product photos are Amazon's and are not
 committed here; the agent downloads them itself.
 
 ## Notes for reuse

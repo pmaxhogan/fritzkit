@@ -1,10 +1,16 @@
 {
   "_stack_template": "coverage/ruleset@1 774a93e808bb",
-  "_comment": "POST /repos/{owner}/{repo}/rulesets with this body (drop this key first: gh api repos/OWNER/REPO/rulesets --input ruleset.json). Rule type and parameter names (code_coverage, max_coverage_drop, minimum_coverage) are from https://docs.github.com/en/rest/repos/rules (create-a-repository-ruleset, read 2026-10-13); the page is a flattened table with no JSON example, so the exact body below is a reconstruction and was NOT executed against a live repo. Prerequisites: GitHub Code Quality enabled on the repo (UI toggle, no API), Cobertura coverage uploads on the default branch, Team or Enterprise Cloud plan or a public repo. The rule does not wait for coverage uploads: add a required_status_checks rule for every check that uploads coverage, or a PR can merge before its coverage lands. minimum_coverage 0 is assumed to mean no absolute floor (unverified).",
+  "_comment": "POST /repos/{owner}/{repo}/rulesets with this body (drop this key first: gh api repos/OWNER/REPO/rulesets --input ruleset.json). Rule type and parameter names (code_coverage, max_coverage_drop, minimum_coverage) are from https://docs.github.com/en/rest/repos/rules (create-a-repository-ruleset, read 2026-10-13); the page is a flattened table with no JSON example, so the exact body below is a reconstruction and was NOT executed against a live repo. Prerequisites: GitHub Code Quality enabled on the repo (UI toggle, no API), Cobertura coverage uploads on the default branch, Team or Enterprise Cloud plan or a public repo. The rule does not wait for coverage uploads: add a required_status_checks rule for every check that uploads coverage, or a PR can merge before its coverage lands. minimum_coverage 0 is assumed to mean no absolute floor (unverified). Applied 2026-10-31 with an admin bypass so the owner can still push main directly (ship.policy direct-push); the rule gates PR merges such as Dependabot.",
   "name": "Code coverage",
   "target": "branch",
   "enforcement": "active",
-  "bypass_actors": [],
+  "bypass_actors": [
+    {
+      "actor_id": 5,
+      "actor_type": "RepositoryRole",
+      "bypass_mode": "always"
+    }
+  ],
   "conditions": {
     "ref_name": {
       "include": ["~DEFAULT_BRANCH"],
